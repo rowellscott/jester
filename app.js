@@ -6,6 +6,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-layouts')
 const mongoose = require('mongoose');
+const passport= require('passport');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const LocalStrategy = require('passport-local').Strategy;
+const User = require('./models/user');
+const bcrypt = require('bcrypt');
+const flash = require('connect-flash')
 
 mongoose.connect('mongodb://localhost/jester');
 
@@ -24,6 +31,59 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash())
+
+app.use(session({
+    secret: 'jester',
+    resave: false, 
+    saveUninitialized: true, 
+    store: new MongoStore( {mongooseConnection: mongoose.connection})
+}));
+
+passport.serializeUser((user, cb) => {
+  cb(null, user.id);
+});
+
+passport.deserializeUser((id, cb) => {
+  User.findById(id, (err, user) => {
+    if (err) { return cb(err); }
+    cb(null, user);
+  });
+});
+
+// Signing Up
+passport.use('local-signup', new LocalStrategy(
+  { passReqToCallback: true },
+  (req, username, password, next) => {
+    process.nextTick(() => {
+        User.findOne({
+            'username': username}, (err, user) => {
+            if (err){ return next(err); }
+
+            if (user) {
+                return next(null, false, {message: "The username already exists"});
+            } 
+              else {
+                const { username, password, email } = req.body;
+                const hashPass = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+                const newUser = new User({
+                  username,
+                  password: hashPass,
+                  email
+                });
+
+                newUser.save((err) => {
+                    if (err){ next(err); }
+                    return next(null, newUser);
+                });
+            }
+        });
+    });
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.use( (req, res, next)=> {
   if (typeof(req.user) !== "undefined"){
@@ -36,6 +96,8 @@ app.use( (req, res, next)=> {
 
 const index = require('./routes/index');
 app.use('/', index);
+const authRoutes = require('./routes/authentication');
+app.use('/', authRoutes)
 
 
 // catch 404 and forward to error handler
