@@ -8,7 +8,7 @@ const userSchema = new Schema ({
     email: {type: mongoose.SchemaTypes.Email, required: true},
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
-    DOB: Date,
+    dob: Date,
 },  { 
     timestamps: { createdAt: "created_at", updatedAt: "updated_at"}
     }

@@ -1,41 +1,9 @@
 
-
-      <nav class="navbar">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#home-nav" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-            </div>
-    
-            <div class="collapse navbar-collapse" id="home-nav">
-              <ul class="nav navbar-nav">
-                <li><a href="#">Jester</a></li>
-                <li class="nav-logo">
-                  <!-- <a href="#" class="nav-logo-link">
-                    <img class="nav-logo-image" src="https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_8c904a3bee158b96cdaf0cad6900b4b2.png" alt="Kickstarter Logo">
-                  </a> -->
-                </li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                <li>
-                  <a href="#">
-                    <span class="glyphicon glyphicon-search"></span>
-                  </a>
-                </li>
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Signup</a></li>
-                <li><a href="#">Profile</a></li>
-              </ul>
-            </div>
-          </div>
-        </nav>
         <div class="container">
           <div class="row">
-            
+            <div class="col-sm-6 text-center">
+             <h1>Welcome to Jester! Find Jokes and Share with Your Friends!</h1>
+            </div>
             <div class="col-sm-6">
               <h2>Sign Up</h2>
               <form action="/signup" method="POST">
@@ -52,28 +20,22 @@
                   <input type="password" name="password" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="firstName">First Name</label>
-                    <input type="password" name="password" class="form-control">
-                  </div>
-
+                  <label for="firstName">Name</label>
+                  <input type="text" name="firstName" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Last Name</label>
+                  <input type="text" name="lastName" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="dob">Date of Birth</label>
+                  <input type="date" name="dob" class="form-control">
+                </div>
+                
+                
                 <button class="btn btn-default" type="submit">Sign Up</button>
+                <p style="float: right; padding-top: 10px">Already have an account? <a href="/login">Login</a></p>
               </form>
-            </div>
-              
-              <div class="col-sm-6">
-                <h2>Login</h2>
-                <form action="/login" method="POST">
-                  <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" name="username" class="form-control">
-                  </div>
-                  <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" class="form-control">
-                  </div>
-
-                  <button class="btn btn-default" type="submit">Login</button>
-                </form> 
             </div>
           </div>
         </div>
