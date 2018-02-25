@@ -36,6 +36,9 @@
                 <button class="btn btn-default" type="submit">Sign Up</button>
                 <p style="float: right; padding-top: 10px">Already have an account? <a href="/login">Login</a></p>
               </form>
+              <% if (typeof message !== "undefined") { %> 
+                <div class="error-message"><%= message %></div>
+              <% } %>
             </div>
           </div>
         </div>

@@ -18,6 +18,7 @@ mongoose.connect('mongodb://localhost/jester');
 
 var app = express();
 
+app.use(flash())
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -31,7 +32,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(flash())
+
 
 app.use(session({
     secret: 'jester',
@@ -61,15 +62,18 @@ passport.use('local-signup', new LocalStrategy(
             if (err){ return next(err); }
 
             if (user) {
-                return next(null, false, {message: "The username already exists"});
+                return next(null, false);
             } 
               else {
-                const { username, password, email } = req.body;
+                const { username, password, email, firstName, lastName, dob} = req.body;
                 const hashPass = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
                 const newUser = new User({
                   username,
                   password: hashPass,
-                  email
+                  email,
+                  firstName,
+                  lastName,
+                  dob
                 });
 
                 newUser.save((err) => {
@@ -87,7 +91,7 @@ passport.use('local-login', new LocalStrategy((username, password, next)=>{
           return next(err);
         }
         if(!user){
-          return next(null, false, {message: "Incorrect username"});
+          return next(null, false, {message: "Incorrect username"})
         }
         if (!bcrypt.compareSync(password, user.password)){
           return next(null, false, {message: "Incorrect password"});

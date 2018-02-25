@@ -11,12 +11,14 @@ router.post('/signup', ensureLoggedOut(), passport.authenticate('local-signup', 
 }));
 
 router.get('/login', (req, res)=>{
-   res.render('authentication/login', {layout: 'layouts/main-layout'})
+   res.render('authentication/login', {layout: 'layouts/main-layout', message: req.flash('error')});
 });
 
 router.post('/login', ensureLoggedOut(), passport.authenticate('local-login', {
   successRedirect: "/",
-  failureRedirect: '/login'
+  failureRedirect: '/login',
+  failureFlash: true, 
+  passReqToCallback: true
 }));
 
 router.post('/logout', ensureLoggedIn(), (req, res)=>{
