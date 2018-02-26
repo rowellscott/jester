@@ -12,9 +12,10 @@ const MongoStore = require('connect-mongo')(session);
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('./models/user');
 const bcrypt = require('bcrypt');
-const flash = require('connect-flash')
+const flash = require('connect-flash');
+require("dotenv").config();
 
-mongoose.connect('mongodb://localhost/jester');
+mongoose.connect(process.env.MONGODB_URI);
 
 var app = express();
 
