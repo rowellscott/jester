@@ -22,6 +22,11 @@ a {
   color: #00B7FF;
 }
 
+/* Category Links
+.left-container .categories li{
+  list-style-type: none;
+} */
+
 .right-container{
   background-color: rgb(172, 164, 164);
   float: right;

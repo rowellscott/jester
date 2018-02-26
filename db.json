@@ -1,13 +1,15 @@
 {
   "jokes": [{
+  "id": 1,
   "content": "Why did the chicken cross the road?   To get to the other side",
   "category": "One-Liner"
 }, 
 {
+  "id": 2,
   "content": "What is a Jew's idea of Christmas?  A parking meter on the roof",
   "category": ["One-Liner", "Jewish"]
 },
-{
+{ "id": 3,
   "content": "Yo' mama so stupid, she walked into an antique shop and asked, \"What's new?\"",
   "category": ["Yo Mama", "One-Liner"]
 }
