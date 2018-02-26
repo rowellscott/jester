@@ -7,3 +7,35 @@ a {
   color: #00B7FF;
 }
 
+.left-container{
+    width: 15vw;
+    background-color: rgb(139, 39, 39);
+    height: 90vh;
+    float: left;
+    box-sizing: border-box;
+    border-radius: 10px;
+    /* border: 10px solid black; */
+}
+
+/* Search Label */
+.left-container .search-label{
+  color: #00B7FF;
+}
+
+.right-container{
+  background-color: rgb(172, 164, 164);
+  float: right;
+  padding-top: 15px;
+  width: 70vw;
+  border-radius: 10px;
+}
+
+.right-container .joke{
+  font-size: 2em;
+}
+
+.right-container .rating{
+  
+}
+
+
