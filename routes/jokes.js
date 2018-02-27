@@ -3,11 +3,11 @@ const router = express.Router();
 const {ensureLoggedIn, ensureLoggedOut} = require('connect-ensure-login')
 const Joke = require('../models/joke')
 
+const categories= []
 function getCategories(){
-  Joke.find({}, 'categories', (err, categories)=>{
+  Joke.find({}, (err, categories)=>{
     if(err){return next(err)} 
     // Create a List of Categories to Send to the Display
-    var categories =[];
     jokes.forEach(joke =>{
       joke.categories.forEach(category => {
           if(categories.indexOf(category) === -1){
@@ -16,16 +16,13 @@ function getCategories(){
       })
     }) 
     // Sort Categories Alphabetically
-    console.log(categories.sort())
-    return categories
-    // console.log(req.session)
-    // res.render('jokes/new', {jokes: jokes, categories: categories, layout: "layouts/jokes"});
+    categories.sort()
 });
 }
 
+
 router.get('/', ensureLoggedIn('/login'), (req, res, next)=>{
   //Get all jokes from database and send to jokes/main.ejs for display
-  getCategories();
   
   Joke.find({}, (err, jokes)=>{
         if(err){return next(err)} 
@@ -58,8 +55,7 @@ router.get('/new', ensureLoggedIn('/login'), (req, res, next) => {
       }) 
       //Sort Categories Alphabetically
       categories.sort();
-      console.log(req.session)
-      res.render('jokes/new', {jokes: jokes, categories: categories, layout: "layouts/jokes"});
+      res.render('jokes/new', {jokes: jokes, categories: categories, layout: "layouts/jokes", user: req.user});
   });
 });
 
@@ -100,9 +96,25 @@ router.post('/', ensureLoggedIn('/login'), (req, res, next)=>{
 });
 
 //Route for User Jokes 
-router.get("/:id", (req, res, next)=>{
-      Joke.find({username: req.params.id}, (err, jokes)=>{
-        res.render('jokes/main', {jokes: jokes, layout: 'layouts/jokes', user: req.user});
+router.get("/:id", ensureLoggedIn('/login'), (req, res, next)=>{
+  Joke.find({}, (err, jokes)=>{
+    if(err){return next(err)} 
+    //Create a List of Categories to Send to the Display
+    var categories =[];
+    jokes.forEach(joke =>{
+      joke.categories.forEach(category => {
+          if(categories.indexOf(category) === -1){
+            categories.push(category)
+          }
+      })
+    }) 
+    //Sort Categories Alphabetically
+    categories.sort();
+     
+    Joke.find({author: req.params.id}, (err, jokes)=>{
+        console.log(categories)
+        res.render('jokes/main', {jokes: jokes, categories: categories, layout: 'layouts/jokes', user: req.user});
+    }); 
   });
 });
 
