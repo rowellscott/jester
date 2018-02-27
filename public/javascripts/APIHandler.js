@@ -79,6 +79,12 @@ class APIHandler {
     })
   }
 
+  createJoke(){
+      const jokeInfo ={
+        
+      }
+  }
+
 }
 
 
