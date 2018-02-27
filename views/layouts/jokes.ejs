@@ -16,14 +16,14 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     
     <!-- Local API Handler -->
-    <script type="text/javascript" src="javascripts/APIHandler.js"></script>
-    <script type="text/javascript" src="javascripts/jokesAPI.js"></script>
+    <script type="text/javascript" src="../javascripts/APIHandler.js"></script>
+    <script type="text/javascript" src="../javascripts/jokesAPI.js"></script>
   </head>
   <body>
     <div class="main-container">
         <div class="container left-container">
             <!-- Link To List All Jokes -->
-            <h5><a id="all-link" href="#">All</a></h5>
+            <h5><a id="all-link" href="/jokes">All</a></h5>
             <!-- Search By Rating -->
             <h5><a href="#">Rating</a></h5>
             <!-- Search Bar -->
@@ -52,7 +52,7 @@
             <br>
             <br>
             <br>
-            <h5><a href="/jokes/new">Add A Joke</a></h5>
+            <h5><a href="/jokes/<%= user._id %>/new">Add A Joke</a></h5>
             <h5><a href="#">MyJokes</a></h5>
             <h5><a href="#">Favorites</a></h5>
             <form action="/logout" method="post">

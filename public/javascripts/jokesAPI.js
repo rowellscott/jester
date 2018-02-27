@@ -1,4 +1,4 @@
-const jokesAPI = new APIHandler("http://localhost:8000/jokes")
+const jokesAPI = new APIHandler("http://localhost:8000")
 
 $(document).ready( () => {
     // List All Jokes
@@ -24,6 +24,9 @@ $(document).ready( () => {
         jokesAPI.getByCategory(category);
     });
 
+    document.getElementById('new-joke-button').onclick = function(){ 
+      jokesAPI.createJoke();
+    }
 })
 
 // $(document).on('click', ".glyphicon-star-empty", function(){
@@ -31,7 +34,7 @@ $(document).ready( () => {
 //   $(this).toggleClass('glyphicon-star glyphicon-star-empty')
 // })
 
-//Highlight
+//Highlight Rating Stars
 $(document).on('mouseover', ".star", function(){
     var onStar = parseInt($(this).data('value'), 10)
     console.log(onStar)
@@ -54,7 +57,8 @@ $(document).on('mouseover', ".star", function(){
     }
     });
   });
-
+  
+  //Click Rating Stars
   $(document).on('click', ".glyphicon-star", function(){
     var onStar = parseInt($(this).data('value'), 10)
     var stars = $(this).parent().children('.star');
@@ -70,9 +74,7 @@ $(document).on('mouseover', ".star", function(){
     for(i =onStar; i < 5 - onStar; i++){
       $(stars[i]).removeClass('glyphicon-star');
       $(stars[i]).addClass('glyphicon-star-empty');
-    }
-
-    
+    } 
   })
   
 

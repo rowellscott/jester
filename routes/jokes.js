@@ -19,26 +19,27 @@ router.get('/', ensureLoggedIn('/login'), (req, res, next)=>{
         }) 
         //Sort Categories Alphabetically
         categories.sort();
-        res.render('jokes/main', {jokes: jokes, categories: categories, layout: 'layouts/jokes'});
+        res.render('jokes/main', {jokes: jokes, categories: categories, layout: 'layouts/jokes', user: req.user});
     });
 });
 
-router.get('/new', ensureLoggedIn('/login'), (req, res, next) => {
-  Joke.find({}, (err, jokes)=>{
-    if(err){return next(err)} 
-    //Create a List of Categories to Send to the Display
-    var categories =[];
-    jokes.forEach(joke =>{
-      joke.categories.forEach(category => {
-          if(categories.indexOf(category) === -1){
-            categories.push(category)
-          }
-      })
-    }) 
-    //Sort Categories Alphabetically
-    categories.sort();
-    res.render('jokes/new', {jokes: jokes, categories: categories, layout: 'layouts/jokes'});
-});
+router.get('/:id/new', ensureLoggedIn('/login'), (req, res, next) => {
+    Joke.find({}, (err, jokes)=>{
+      if(err){return next(err)} 
+      //Create a List of Categories to Send to the Display
+      var categories =[];
+      jokes.forEach(joke =>{
+        joke.categories.forEach(category => {
+            if(categories.indexOf(category) === -1){
+              categories.push(category)
+            }
+        })
+      }) 
+      //Sort Categories Alphabetically
+      categories.sort();
+      console.log(req.session)
+      res.render('jokes/new', {jokes: jokes, categories: categories});
+  });
 });
 
 // Route for keyword searches 
