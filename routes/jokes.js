@@ -68,7 +68,7 @@ router.post('/', ensureLoggedIn('/login'), (req, res, next)=>{
     else{
       var categories=[req.body.category]
     }
-    
+    console.log(req.body.newCategories)
     if(req.body.newCategories !== ""){
     var newCategories = req.body.newCategories.split(", ")
     newCategories.forEach((category) =>{
@@ -141,9 +141,11 @@ router.get("/:id/edit", (req, res, next)=>{
   })
 });
 
-router.post("/:id", (req, res, next) =>{
+router.post("/:id", ensureLoggedIn(), (req, res, next) =>{
+    
     var id= req.params.id;  
     var content = req.body.content;
+    var categories = req.body.category;
     if( req.body.category.indexOf(",") !== -1){
       var categories = req.body.category
     }
@@ -167,11 +169,11 @@ router.post("/:id", (req, res, next) =>{
       categories,
     }
    
-    Joke.findByIdAndUpdate(id, updates, (req, res, next)=>{
-      if (err){return next(err)};
-      res.redirect("/jokes")
+    Joke.findByIdAndUpdate(id, updates, (err, joke)=>{
+      if (err){return next(err)}
+      res.redirect('/jokes/'+ joke.author)
     });
-  })
+  });
 
 // Route for keyword searches 
 router.post('/search', ensureLoggedIn('/login'), (req, res, next)=>{

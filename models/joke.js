@@ -7,7 +7,10 @@ const jokeSchema= Schema({
   rating: {type: Number, default: 0, required: true},
   author: Schema.Types.ObjectId, 
   link: String
-});
+},{
+    timestamps: { createdAt: "created_at", updatedAt: "updated_at"}
+    }
+);
 
 const Joke = mongoose.model("Joke", jokeSchema);
 module.exports = Joke
