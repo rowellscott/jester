@@ -1,0 +1,23 @@
+<div id="new-form">
+  <div class="container right-container">
+    <form>
+      <h1>Add A Joke</h1>
+      <div class="form-group">
+        <label for="new-content">Content</label>
+        <textarea name="new-content" id="new-content" class="form-control"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="new-categories">Categories</label>
+        <select multiple class="form-control" id="new-categories">
+            <% categories.forEach((category)=>{ %>
+              <option id="new-<%= category %>"><%= category %></option>
+            <% }) %>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+

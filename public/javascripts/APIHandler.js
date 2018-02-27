@@ -5,16 +5,20 @@ class APIHandler {
   
   //Display a Joke 
   displayJoke(joke){
+    console.log(joke)
     var jokeHTML = `
     <div class="jumbotron">
     <span class="joke">${joke.content}</span>
     <br>
     <br>
-    <span class="glyphicon glyphicon-star-empty rating" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star-empty rating" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star-empty rating" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star-empty rating" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-star-empty rating" aria-hidden="true"></span>
+    <div class="rating">
+    <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='1'></span>
+    <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='2'></span>
+    <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='3'></span>
+    <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='4'></span>
+    <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='5'></span>
+    <span class="rating-value">Avg.${joke.rating}</span>
+    <button type="button" class="btn favorite"><i class="em em-laughing"></i></button>
   </div>
   `
     document.getElementsByClassName('right-container')[0].innerHTML += jokeHTML 
@@ -76,3 +80,5 @@ class APIHandler {
   }
 
 }
+
+

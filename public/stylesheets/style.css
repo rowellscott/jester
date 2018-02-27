@@ -39,8 +39,32 @@ a {
   font-size: 2em;
 }
 
-.right-container .rating{
-  
+/* Rating Stars on Hover */
+.right-container .star{
+  color: orange;
+}
+
+/* Rating Stars on Click */
+.right-container .star.selected{
+  color: orange;
+}
+/* Favorite Button */
+.right-container .favorite{
+  margin-left: 5vw;
+  background-color: white;
+}
+
+.right-container .favorite i{
+  font-size: 1.5em;
+}
+
+/* Add New Joke Form */
+#new-form .right-container{
+  background-color: rgb(172, 164, 164);
+  float: right;
+  padding-top: 15px;
+  width: 70vw;
+  border-radius: 10px;
 }
 
 

@@ -4,7 +4,7 @@ const passport = require('passport')
 const {ensureLoggedIn, ensureLoggedOut} = require('connect-ensure-login')
 
 router.post('/signup', ensureLoggedOut(), passport.authenticate('local-signup', {
-  successRedirect: '/login',
+  successRedirect: '/jokes',
   failureRedirect: '/',
   failureFlash: true,
   passReqToCallback: true
@@ -23,7 +23,7 @@ router.post('/login', ensureLoggedOut(), passport.authenticate('local-login', {
 
 router.post('/logout', ensureLoggedIn(), (req, res)=>{
   req.logout();
-  res.redirect('/')
+  res.redirect('/login')
 })
 
 
