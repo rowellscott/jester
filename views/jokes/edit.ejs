@@ -1,0 +1,37 @@
+<div id="new-joke-form">
+  <div class="container right-container">
+    <form action="/jokes/<%=joke._id%>" method="POST">
+      <h1>Edit Joke</h1>
+      <div class="form-group">
+        <label for="content">Content</label>
+        <textarea name="content" id="content" class="form-control"><%=joke.content%></textarea>
+      </div>
+
+      <h5>Categories</h5>
+      <div class="form-check">
+          <% categories.forEach((category)=>{ %>
+            <% if (joke.categories.indexOf(category) !== -1) {%>
+            <input class="form-check-input" name="category" type="checkbox" value="<%= category %>" id="new-<%=category %>" checked>
+            <label class="form-check-label" for="new-<%=category %>">
+              <%= category %>
+            </label>
+            <% } else {%>
+              <input class="form-check-input" name="category" type="checkbox" value="<%= category %>" id="new-<%=category %>">
+            <label class="form-check-label" for="new-<%=category %>">
+              <%= category %>
+            </label>
+            <% } %>
+          <% }) %>
+      </div>
+      <br>
+      <div class="form-group">
+          <label for="newCategories">Add New Categories</label>
+          <textarea name="newCategories" id="new-categories" class="form-control" placeholder="Separate By Commas and A Space: One-Liner, Jewish, Yo-mama, etc..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" id="new-joke-button">Submit</button>
+    </form>
+    <% if (typeof message !== "undefined"){ %>
+      <div class="error-message"><% message %></div>
+    <% } %>
+  </div>
+</div>

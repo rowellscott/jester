@@ -61,20 +61,20 @@ router.get('/new', ensureLoggedIn('/login'), (req, res, next) => {
 
 //Route for Saving a Joke from Add Joke Form
 router.post('/', ensureLoggedIn('/login'), (req, res, next)=>{
-  
     var content = req.body.newContent;
-    //Get Categories from Checkboxes and Put Into an Array
-    if( typeof(req.body.category) !== "Array"){
-      var categories = [req.body.category];
-    }
-    else{
+    if( req.body.category.indexOf(",") !== -1){
       var categories = req.body.category
     }
+    else{
+      var categories=[req.body.category]
+    }
     
+    if(req.body.newCategories !== ""){
     var newCategories = req.body.newCategories.split(", ")
     newCategories.forEach((category) =>{
       categories.push(category);
     });
+    } 
 
     if(content===""){
         res.redirect('jokes/new');
@@ -91,8 +91,7 @@ router.post('/', ensureLoggedIn('/login'), (req, res, next)=>{
     newJoke.save((err)=>{
         if (err) {return next(err)};
         res.redirect('/jokes')  
-    })
-    
+    });
 });
 
 //Route for User Jokes 
@@ -113,10 +112,66 @@ router.get("/:id", ensureLoggedIn('/login'), (req, res, next)=>{
      
     Joke.find({author: req.params.id}, (err, jokes)=>{
         console.log(categories)
-        res.render('jokes/main', {jokes: jokes, categories: categories, layout: 'layouts/jokes', user: req.user});
+        res.render('jokes/myJokes', {jokes: jokes, categories: categories, layout: 'layouts/jokes', user: req.user});
     }); 
   });
 });
+
+router.get("/:id/edit", (req, res, next)=>{
+  Joke.find({}, (err, jokes)=>{
+    if(err){return next(err)} 
+    //Create a List of Categories to Send to the Display
+    var categories =[];
+    jokes.forEach(joke =>{
+      joke.categories.forEach(category => {
+          if(categories.indexOf(category) === -1){
+            categories.push(category)
+          }
+      })
+    }) 
+    //Sort Categories Alphabetically
+    categories.sort();  
+  
+    var id= req.params.id;
+    Joke.findById(id, (err, joke)=>{
+      if (err) {return next(err)}
+      res.render('jokes/edit', {categories: categories, layout: "layouts/jokes", user: req.user, joke: joke})
+    })
+  
+  })
+});
+
+router.post("/:id", (req, res, next) =>{
+    var id= req.params.id;  
+    var content = req.body.content;
+    if( req.body.category.indexOf(",") !== -1){
+      var categories = req.body.category
+    }
+    else{
+      var categories=[req.body.category]
+    }
+    
+    if(req.body.newCategories !== ""){
+    var newCategories = req.body.newCategories.split(", ")
+    newCategories.forEach((category) =>{
+      categories.push(category);
+    });
+    } 
+
+    if(content===""){
+        res.redirect('jokes/' + id + '/edit');
+    }
+
+    const updates = {
+      content, 
+      categories,
+    }
+   
+    Joke.findByIdAndUpdate(id, updates, (req, res, next)=>{
+      if (err){return next(err)};
+      res.redirect("/jokes")
+    });
+  })
 
 // Route for keyword searches 
 router.post('/search', ensureLoggedIn('/login'), (req, res, next)=>{
