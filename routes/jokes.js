@@ -5,7 +5,7 @@ const Joke = require('../models/joke')
 
 const categories= []
 function getCategories(){
-  Joke.find({}, (err, categories)=>{
+  Joke.find({}, (err, jokes)=>{
     if(err){return next(err)} 
     // Create a List of Categories to Send to the Display
     jokes.forEach(joke =>{
@@ -16,21 +16,24 @@ function getCategories(){
       })
     }) 
     // Sort Categories Alphabetically
-    categories.sort()
+    return categories.sort()
 });
 }
 
 
 router.get('/', ensureLoggedIn('/login'), (req, res, next)=>{
   //Get all jokes from database and send to jokes/main.ejs for display
-  
   Joke.find({}, (err, jokes)=>{
         if(err){return next(err)} 
         //Create a List of Categories to Send to the Display
         var categories =[];
         jokes.forEach(joke =>{
           joke.categories.forEach(category => {
-              if(categories.indexOf(category) === -1){
+              if(category ==="None"){
+                return
+              }
+             else if(categories.indexOf(category) === -1){
+                console.log(category)
                 categories.push(category)
               }
           })
@@ -48,10 +51,14 @@ router.get('/new', ensureLoggedIn('/login'), (req, res, next) => {
       var categories =[];
       jokes.forEach(joke =>{
         joke.categories.forEach(category => {
-            if(categories.indexOf(category) === -1){
-              categories.push(category)
-            }
-        })
+          if(category ==="None"){
+            return
+          }
+         else if(categories.indexOf(category) === -1){
+            console.log(category)
+            categories.push(category)
+          }
+      })
       }) 
       //Sort Categories Alphabetically
       categories.sort();
@@ -63,22 +70,35 @@ router.get('/new', ensureLoggedIn('/login'), (req, res, next) => {
 router.post('/', ensureLoggedIn('/login'), (req, res, next)=>{
     var content = req.body.newContent;
     var categories = req.body.category
-    // If One Checkbox Checked, Cast Variable to An Array
-    if (Array.isArray(categories) === false){
-       var categories = [req.body.category]
-    }
-
-    // Split new categories into separate strings
-    var newCategories = req.body.newCategories.split(", ")
-    //Add Each New Category to Cateogries Array
-    newCategories.forEach((category) =>{
-      categories.push(category);
-    });
+    console.log(categories)
     
-
-    if(content===""){
-        res.redirect('jokes/new');
+    // If One Checkbox Checked, Cast Variable to An Array
+    if (Array.isArray(categories) === false && categories !== undefined){
+      var categories = [req.body.category]
     }
+    // Eliminate An Empty String From Entering Database
+    if( req.body.newCategories !== ""){
+      //Make Categories An Array if Undefined
+      if (categories == undefined){
+        categories = [];
+      }
+      // Split new categories into separate strings
+      var newCategories = req.body.newCategories.split(", ")
+      //Add Each New Category to Cateogries Array
+      console.log(newCategories)
+      newCategories.forEach((category) =>{
+        categories.push(category);
+      });
+    }
+
+       
+     if (categories == undefined){
+       categories=["None"]
+     }
+    
+    if (content===""){
+        res.redirect('jokes/new');
+      }
     
     const jokeInfo = {
       content, 
@@ -102,10 +122,14 @@ router.get("/:id", ensureLoggedIn('/login'), (req, res, next)=>{
     var categories =[];
     jokes.forEach(joke =>{
       joke.categories.forEach(category => {
-          if(categories.indexOf(category) === -1){
-            categories.push(category)
-          }
-      })
+        if(category ==="None"){
+          return
+        }
+       else if(categories.indexOf(category) === -1){
+          console.log(category)
+          categories.push(category)
+        }
+    })
     }) 
     //Sort Categories Alphabetically
     categories.sort();
@@ -124,14 +148,18 @@ router.get("/:id/edit", (req, res, next)=>{
     var categories =[];
     jokes.forEach(joke =>{
       joke.categories.forEach(category => {
-          if(categories.indexOf(category) === -1){
-            categories.push(category)
-          }
-      })
+        if(category ==="None"){
+          return
+        }
+       else if(categories.indexOf(category) === -1){
+          console.log(category)
+          categories.push(category)
+        }
+    })
     }) 
     //Sort Categories Alphabetically
     categories.sort();  
-  
+    
     var id= req.params.id;
     Joke.findById(id, (err, joke)=>{
       if (err) {return next(err)}
@@ -141,6 +169,7 @@ router.get("/:id/edit", (req, res, next)=>{
   })
 });
 
+//Route for Posting Updates to Database
 router.post("/:id", ensureLoggedIn(), (req, res, next) =>{
     
     var id= req.params.id;  
@@ -148,10 +177,17 @@ router.post("/:id", ensureLoggedIn(), (req, res, next) =>{
     var categories = req.body.editCategory
     console.log(categories)
     // If One Checkbox Checked, Cast Variable to An Array
-    if (Array.isArray(categories) === false){
-       var categories = [req.body.edit-category]
+    if (Array.isArray(categories) === false && categories !== undefined){
+      var categories = [req.body.editCategory]
     }
-
+    
+    
+    // Eliminate An Empty String From Entering Database
+    if( req.body.newCategories !== ""){
+      //Make Categories An Array if Undefined
+      if (categories == undefined){
+        categories = [];
+      }
     // Split new categories into separate strings
     var newCategories = req.body.newCategories.split(", ")
     //Add Each New Category to Cateogries Array
@@ -159,7 +195,13 @@ router.post("/:id", ensureLoggedIn(), (req, res, next) =>{
     newCategories.forEach((category) =>{
       categories.push(category);
     });
+  }
 
+    //If Categories, Set Categories Equal to None as Placeholder
+    if (categories == undefined){
+      categories=["None"]
+    }
+  
     if(content===""){
         res.redirect('/jokes/' + id + '/edit');
     }
@@ -175,7 +217,8 @@ router.post("/:id", ensureLoggedIn(), (req, res, next) =>{
     });
   });
 
-  router.post('/:id/delete', ensureLoggedIn(), (req, res, next)=>{
+  // Delete Joke Route
+  router.post('/:id/delete', ensureLoggedIn('/login'), (req, res, next)=>{
       var id = req.params.id
       Joke.findByIdAndRemove(id, (err, joke)=>{
           if(err){return next(err)}

@@ -29,6 +29,7 @@
           <textarea name="newCategories" id="new-categories" class="form-control" placeholder="Separate By Commas and A Space: One-Liner, Jewish, Yo-mama, etc..."></textarea>
       </div>
       <button type="submit" class="btn btn-primary" id="new-joke-button">Save Changes</button>
+      <button class="btn btn-primary"><a href="/jokes/<%= user._id%>">Cancel</a></button>
     </form>
     <% if (typeof message !== "undefined"){ %>
       <div class="error-message"><% message %></div>
