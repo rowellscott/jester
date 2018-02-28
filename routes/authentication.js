@@ -10,7 +10,7 @@ router.post('/signup', ensureLoggedOut('/'), passport.authenticate('local-signup
   passReqToCallback: true
 }));
 
-router.get('/login', (req, res)=>{
+router.get('/login', ensureLoggedOut('/jokes'), (req, res)=>{
    res.render('authentication/login', {layout: 'layouts/main-layout', message: req.flash('error')});
 });
 

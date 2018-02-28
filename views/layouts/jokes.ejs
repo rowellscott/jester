@@ -19,19 +19,55 @@
     <!-- <script type="text/javascript" src="../javascripts/APIHandler.js"></script>
     <script type="text/javascript" src="../javascripts/jokesAPI.js"></script> -->
   </head>
-  <body>
-    <div class="main-container">
+  <body id="jokes">
+      <nav class="navbar">
+          <div class="container-fluid top">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#home-nav" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+    
+            <div class="collapse navbar-collapse" id="home-nav">
+              <ul class="nav navbar-nav">
+                <li><a class="jester-logo navbar-brand" href="/jokes">Jester</a></li>
+                <li class="nav-logo">
+                  <!-- <a href="#" class="nav-logo-link">
+                    <img class="nav-logo-image" src="https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_8c904a3bee158b96cdaf0cad6900b4b2.png" alt="Kickstarter Logo">
+                  </a> -->
+                </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <!-- <li><a href="/jokes">All</a></li> -->
+                <li><h5><a href="/jokes/<%= user._id %>">MyJokes</a></h5></li>
+                <li><h5><a href="/jokes/new">Add A Joke</a></h5></li>
+                <li><h5><a href="#">Favorites</a></h5></li>
+                <li>
+                  <form action="/logout" method="post">
+                    <button class="btn btn-link" type="submit">Logout</button>
+                  </form>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+    <div class="jokes-container">
         <div class="container left-container">
             <!-- Link To List All Jokes -->
-            <h5><a id="all-link" href="/jokes">All</a></h5>
+            <!-- <h5 class="username">Hi <%= user.username %>!</h5> -->
+            <h5><a id="all-link" href="/jokes">All Jokes</a></h5>
             <!-- Search By Rating -->
-            <h5><a href="#">Rating</a></h5>
+            <!-- <h5><a href="#">Rating</a></h5> -->
             <!-- Search Bar -->
             <form id="search">
               <label for="search-input" class="search-label">Keyword Search:</label>
-              <input id="search-input" type="text" name="search">
-              <button class="btn" type="submit" id="search-button">Enter</button>
+              <input id="search-input" type="text" name="search" class="form-control">
+              <button class="btn" type="submit" id="search-button">Search</button>
             </form>
+            <br>
             
             <!-- Categories Dropdown Menu -->
             <div class="dropdown" aria-labelledby="dropdownMenuButton">  
@@ -52,12 +88,6 @@
             <br>
             <br>
             <br>
-            <h5><a href="/jokes/new">Add A Joke</a></h5>
-            <h5><a href="/jokes/<%= user._id %>">MyJokes</a></h5>
-            <h5><a href="#">Favorites</a></h5>
-            <form action="/logout" method="post">
-              <button class="btn btn-link" type="submit">Logout</button>
-            </form>
         </div>
       <%- body -%>
     </div>

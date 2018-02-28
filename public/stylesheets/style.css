@@ -1,10 +1,23 @@
 @import url('https://fonts.googleapis.com/css?family=Caveat');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
-
-body {
-  /* padding: 50px; */
+body{
   font: 14px "Open Sans", Helvetica, Arial, sans-serif;
+}
+/* Body for Main-Layout */
+#main {
+  background-image: url('https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX11440907.jpg');
+  background-repeat: repeat-y;
+  background-size: cover;
+  height: 100%;
+}
+
+/* Body for Jokes-Layout */
+#jokes {
+  background-image: url('https://data.whicdn.com/images/192740179/superthumb.jpg');
+  background-repeat: repeat-y;
+  background-size: cover;
+  /* background-color: rgb(230,236,240) */
 }
 
 a {
@@ -24,6 +37,11 @@ nav .jester-logo{
   font-size: 3em;
 }
 
+/* Jokes Page Links */
+nav li h5{
+  padding: 0 1vw;
+}
+
 .main-container h1{
   color: white;
 }
@@ -32,11 +50,15 @@ nav .jester-logo{
 }
 
 .main-container{
-  margin-top: -4vh;
+   position: relative; 
+   bottom: 4vh;
+   padding-top: 2vh;
 }
 /* Background Image for Home Page Container */
 .main-container.bg{
   background-image: url('https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX11440907.jpg');
+  background-repeat: repeat-y;
+  background-size: cover;
 }
 
 /* App Info on Home Page */
@@ -49,25 +71,51 @@ nav .jester-logo{
   font-size: 4em;
 };
 
-/* App Sign-Up Form on Home Page */
-.main-container #sign-up-form{
-    background-color: black;
+/* App Sign-Up Form Bottom Text */
+.jumbotron p{
+  float: right; 
+  padding-top: 10px;
+  font-size: 10em;
 }
 
-/* Sign-Up Jumbotron */
-.jumbotron h2 {
+/* Jumbotron Styling */
+.main-container .jumbotron h2{
   color: red;
 }
 
-.container .jumbotron {
+.main-container .container .jumbotron {
   margin-top: 3vh;
   background-color: black;
+  border-radius: 10px;
+}
+
+/* Login Jumbotron Container */
+.main-container .login{
+  margin: 5vh auto;
+  text-align: center
+}
+
+.main-container .login h2{
+  padding-bottom: 1vh;
+}
+
+/* Jokes Page Classes */
+.jokes-container{
+  padding: 15px 30px;
+}
+
+#jokes a, h5{
+  color: white;
+}
+
+#jokes .username{
+  padding-bottom: 3vh;
 }
 
 .left-container{
     width: 15vw;
     background-color: rgb(139, 39, 39);
-    height: 90vh;
+    height: 75%;
     float: left;
     box-sizing: border-box;
     border-radius: 10px;
@@ -76,13 +124,18 @@ nav .jester-logo{
 
 /* Search Label */
 .left-container .search-label{
-  color: #00B7FF;
+  color: white;
 }
 
-/* Category Links
-.left-container .categories li{
-  list-style-type: none;
-} */
+/* Category Dropdown Menu */
+.categories{
+  background-color :rgb(149,23,27);
+  border-radius: 10px;
+}
+
+.categories li{
+  color: black;
+}
 
 .right-container{
   background-color: rgb(172, 164, 164);
@@ -90,6 +143,8 @@ nav .jester-logo{
   padding-top: 15px;
   width: 70vw;
   border-radius: 10px;
+  height: 100vh;
+  overflow-y: scroll;
 }
 
 .right-container .joke{
@@ -116,11 +171,11 @@ nav .jester-logo{
 }
 
 /* Add New Joke Form */
-#new-form .right-container{
+#new-joke-form .right-container{
   background-color: rgb(172, 164, 164);
-  float: right;
   padding-top: 15px;
   width: 70vw;
   border-radius: 10px;
+  height: 70vh;
 }
 
