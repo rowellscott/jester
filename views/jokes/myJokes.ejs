@@ -12,10 +12,14 @@
           <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='5'></span>
           <span class="rating-value">Avg.<%= joke.rating %></span>
           <button type="button" class="btn favorite"><i class="em em-laughing"></i></button>
-          <br>
-          <a href="/jokes/<%= joke._id %>/edit"><button type="button" class="btn">Edit</button></a>
           
-          <button type="button" class="btn">Delete</button>
+          <br>
+          <!-- Edit Joke Button -->
+          <a href="/jokes/<%= joke._id %>/edit"><button type="button" class="btn">Edit</button></a>
+          <!-- Delete Joke Button -->
+          <form action ="/jokes/<%= joke._id %>/delete" method="POST">
+            <button type="submit" class="btn btn-link">Delete</button>
+          </form>
         </div>
       </div>
   <% }) %>

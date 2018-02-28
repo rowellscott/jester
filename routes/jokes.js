@@ -62,19 +62,19 @@ router.get('/new', ensureLoggedIn('/login'), (req, res, next) => {
 //Route for Saving a Joke from Add Joke Form
 router.post('/', ensureLoggedIn('/login'), (req, res, next)=>{
     var content = req.body.newContent;
-    if( req.body.category.indexOf(",") !== -1){
-      var categories = req.body.category
+    var categories = req.body.category
+    // If One Checkbox Checked, Cast Variable to An Array
+    if (Array.isArray(categories) === false){
+       var categories = [req.body.category]
     }
-    else{
-      var categories=[req.body.category]
-    }
-    console.log(req.body.newCategories)
-    if(req.body.newCategories !== ""){
+
+    // Split new categories into separate strings
     var newCategories = req.body.newCategories.split(", ")
+    //Add Each New Category to Cateogries Array
     newCategories.forEach((category) =>{
       categories.push(category);
     });
-    } 
+    
 
     if(content===""){
         res.redirect('jokes/new');
@@ -94,7 +94,7 @@ router.post('/', ensureLoggedIn('/login'), (req, res, next)=>{
     });
 });
 
-//Route for User Jokes 
+//Route for Displaying User Jokes 
 router.get("/:id", ensureLoggedIn('/login'), (req, res, next)=>{
   Joke.find({}, (err, jokes)=>{
     if(err){return next(err)} 
@@ -145,23 +145,23 @@ router.post("/:id", ensureLoggedIn(), (req, res, next) =>{
     
     var id= req.params.id;  
     var content = req.body.content;
-    var categories = req.body.category;
-    if( req.body.category.indexOf(",") !== -1){
-      var categories = req.body.category
+    var categories = req.body.editCategory
+    console.log(categories)
+    // If One Checkbox Checked, Cast Variable to An Array
+    if (Array.isArray(categories) === false){
+       var categories = [req.body.edit-category]
     }
-    else{
-      var categories=[req.body.category]
-    }
-    
-    if(req.body.newCategories !== ""){
+
+    // Split new categories into separate strings
     var newCategories = req.body.newCategories.split(", ")
+    //Add Each New Category to Cateogries Array
+    console.log(newCategories)
     newCategories.forEach((category) =>{
       categories.push(category);
     });
-    } 
 
     if(content===""){
-        res.redirect('jokes/' + id + '/edit');
+        res.redirect('/jokes/' + id + '/edit');
     }
 
     const updates = {
@@ -175,6 +175,14 @@ router.post("/:id", ensureLoggedIn(), (req, res, next) =>{
     });
   });
 
+  router.post('/:id/delete', ensureLoggedIn(), (req, res, next)=>{
+      var id = req.params.id
+      Joke.findByIdAndRemove(id, (err, joke)=>{
+          if(err){return next(err)}
+          res.redirect('/jokes/' + joke.author)
+      });
+  });
+
 // Route for keyword searches 
 router.post('/search', ensureLoggedIn('/login'), (req, res, next)=>{
   console.log(req.body.search);  
@@ -183,6 +191,7 @@ router.post('/search', ensureLoggedIn('/login'), (req, res, next)=>{
     res.render('jokes/main', {jokes: jokes, layout: 'layouts/jokes'});
   });
 });
+
 
 // router.get('/categories', ensureLoggedIn('/login'), (req, res, next)=>{
 //   Joke.find({})
