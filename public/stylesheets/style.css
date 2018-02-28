@@ -1,10 +1,67 @@
+@import url('https://fonts.googleapis.com/css?family=Caveat');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /* padding: 50px; */
+  font: 14px "Open Sans", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+/* Navbar Styling */
+nav .top{
+  background-color: rgb(151, 21, 21);
+  padding: 1vh;
+}
+
+/* Brand Logo */
+nav .jester-logo{
+  font-family: Caveat;
+  color: White;
+  font-size: 3em;
+}
+
+.main-container h1{
+  color: white;
+}
+.main-container h2, form{
+  color: gray;
+}
+
+.main-container{
+  margin-top: -4vh;
+}
+/* Background Image for Home Page Container */
+.main-container.bg{
+  background-image: url('https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX11440907.jpg');
+}
+
+/* App Info on Home Page */
+.main-container .app-info{
+  padding-top: 10vh;
+}
+
+/* App Info Text on Home Page */
+.main-container .app-info-text{
+  font-size: 4em;
+};
+
+/* App Sign-Up Form on Home Page */
+.main-container #sign-up-form{
+    background-color: black;
+}
+
+/* Sign-Up Jumbotron */
+.jumbotron h2 {
+  color: red;
+}
+
+.container .jumbotron {
+  margin-top: 3vh;
+  background-color: black;
 }
 
 .left-container{
@@ -66,5 +123,4 @@ a {
   width: 70vw;
   border-radius: 10px;
 }
-
 

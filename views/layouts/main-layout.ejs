@@ -13,7 +13,7 @@
   </head>
   <body>
       <nav class="navbar">
-          <div class="container-fluid">
+          <div class="container-fluid top">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#home-nav" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
@@ -25,7 +25,7 @@
     
             <div class="collapse navbar-collapse" id="home-nav">
               <ul class="nav navbar-nav">
-                <li><a href="/">Jester</a></li>
+                <li><a class="jester-logo navbar-brand" href="/">Jester</a></li>
                 <li class="nav-logo">
                   <!-- <a href="#" class="nav-logo-link">
                     <img class="nav-logo-image" src="https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_8c904a3bee158b96cdaf0cad6900b4b2.png" alt="Kickstarter Logo">
@@ -33,24 +33,18 @@
                 </li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
-                <li>
-                  <a href="#">
-                    <span class="glyphicon glyphicon-search"></span>
-                  </a>
-                </li>
+                <li><a href="#">Home</a></li>
                 <li><a href="/login">Login</a></li>
-                <li><a href="#">Signup</a></li>
                 <li>
                   <form action="/logout" method="post">
                     <button class="btn btn-link" type="submit">Logout</button>
                   </form>
                 </li>
-                <li><a href="#">Profile</a></li>
               </ul>
             </div>
           </div>
         </nav>
-    <div class="main-container">
+    <div class="main-container bg">
       <%- body -%>
     </div>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
