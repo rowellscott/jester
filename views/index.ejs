@@ -7,6 +7,9 @@
             </div>
             <div class="col-sm-6 jumbotron" id="sign-up-form">
               <h2>Sign Up</h2>
+              <% if (typeof message !== "undefined"){ %> 
+                <div class="error-message"><%= message %></div>
+              <% } %>
               <form action="/signup" method="POST">
                 <div class="form-group">
                     <label for="email">Email</label>
@@ -35,11 +38,10 @@
                 
                 
                 <button class="btn btn-default" type="submit">Sign Up</button>
-                <p class="sign"> Already have an account? <a href="/login">Login</a></p>
               </form>
-              <% if (typeof message !== "undefined") { %> 
-                <div class="error-message"><%= message %></div>
-              <% } %>
+              <br>
+              <p class="sign"> Already have an account?    <a href="/login">Login</a></p>
+             
             </div>
           </div>
         </div>

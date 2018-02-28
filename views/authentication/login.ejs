@@ -3,6 +3,10 @@
     <div class="col-sm-3"></div>
     <div class="col-sm-6 jumbotron">
       <h2>Login</h2>
+      <% if (typeof(message) !== "undefined"){ %>
+        <div class="error-message"><%= message %></div>
+      <% } %>
+      <br>
       <form action="/login" method="POST">
         <div class="form-group">
           <label for="username">Username</label>
@@ -14,13 +18,13 @@
         </div>
         <br>
       <button class="btn btn-default" type="submit">Login</button>
-      </form> 
-      <p class="sign"> Don't have an Account?<a href="/">Sign Up</a></p>
+      </form>
+      <br> 
+      <p class="sign"> Don't have an Account?<a href="/">  Sign Up</a></p>
+      
+      
     </div>
     <div class="col-sm-3"></div>
   </div>
 </div>
 
-<% if (typeof message !== "undefined"){ %>
-  <div class="error-message"><%= message%></div>
-<% } %>

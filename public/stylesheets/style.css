@@ -80,7 +80,7 @@ nav li h5{
 
 /* Jumbotron Styling */
 .main-container .jumbotron h2{
-  color: red;
+  color: white;
 }
 
 .main-container .container .jumbotron {
@@ -179,3 +179,18 @@ nav li h5{
   height: 70vh;
 }
 
+.error-message{
+   text-align: center;
+   color: red;
+   font-size: 1.5em;
+   font-style: italic;
+  
+    /* padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: #ff4136;
+    border-color: #ff1103;
+    color: #ffffff;
+    text-align: center; */
+}

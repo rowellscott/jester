@@ -62,9 +62,9 @@
             <!-- Search By Rating -->
             <!-- <h5><a href="#">Rating</a></h5> -->
             <!-- Search Bar -->
-            <form id="search">
+            <form id="search" action="/jokes/search" method="POST">
               <label for="search-input" class="search-label">Keyword Search:</label>
-              <input id="search-input" type="text" name="search" class="form-control">
+              <input id="search-input" type="text" name="query" class="form-control">
               <button class="btn" type="submit" id="search-button">Search</button>
             </form>
             <br>
@@ -79,7 +79,7 @@
                 <ul>
                 <% categories.forEach((category)=>{ %>
                   <li>
-                  <a class="dropdown-item" id="<%= category %>" href="#"><%= category %></a>
+                  <a class="dropdown-item" id="<%= category %>" href="jokes/categories/<%= category %>"><%= category %></a>
                   </li>
                <% }) %>
                 </ul>

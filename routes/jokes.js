@@ -163,11 +163,33 @@ router.get("/:id/edit", (req, res, next)=>{
     var id= req.params.id;
     Joke.findById(id, (err, joke)=>{
       if (err) {return next(err)}
-      res.render('jokes/edit', {categories: categories, layout: "layouts/jokes", user: req.user, joke: joke})
+      res.render('jokes/edit', {categories: categories, layout: "layouts/jokes", user: req.user, joke: joke, message: req.flash('error')})
     })
   
   })
 });
+
+
+//Route for Displaying Category Searches
+router.get("/categories/:category", (req, res, next)=>{
+    var category = req.params.category;
+    console.log(category)
+    Joke.find({"categories": { $in : [category]}}, (err, jokes) =>{
+        console.log(jokes)
+        
+    });
+
+  });
+// Route for Displaying Keyword Searches 
+router.post('/search', ensureLoggedIn('/login'), (req, res, next)=>{
+  console.log(req.body.query);  
+  Joke.find({"content": {"$regex": req.body.query, "$options": "i" }}, (err, jokes)=>{
+    console.log(jokes)
+    // res.render('jokes/main', {jokes: jokes, layout: 'layouts/jokes'});
+    res.redirect('/jokes')
+  });
+});
+
 
 //Route for Posting Updates to Database
 router.post("/:id", ensureLoggedIn(), (req, res, next) =>{
@@ -201,7 +223,7 @@ router.post("/:id", ensureLoggedIn(), (req, res, next) =>{
     if (categories == undefined){
       categories=["None"]
     }
-  
+    
     if(content===""){
         res.redirect('/jokes/' + id + '/edit');
     }
@@ -226,14 +248,11 @@ router.post("/:id", ensureLoggedIn(), (req, res, next) =>{
       });
   });
 
-// Route for keyword searches 
-router.post('/search', ensureLoggedIn('/login'), (req, res, next)=>{
-  console.log(req.body.search);  
-  Joke.find({"content": {"$regex": req.body.search, "$options": "i" }}, (err, jokes)=>{
-    console.log(jokes)
-    res.render('jokes/main', {jokes: jokes, layout: 'layouts/jokes'});
-  });
-});
+
+// router.get("/search", (req, res, next)=>{
+//   res.redirect('/jokes');
+// });
+
 
 
 // router.get('/categories', ensureLoggedIn('/login'), (req, res, next)=>{
