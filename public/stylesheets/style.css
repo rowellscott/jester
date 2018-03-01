@@ -109,6 +109,10 @@ nav li h5{
   background-color: blue;
 }
 
+.google{
+  background-color: #dd4b39;
+}
+
 /* Login Jumbotron Container */
 .main-container .login{
   margin: 5vh auto;
@@ -202,6 +206,7 @@ nav li h5{
 /* Rating Stars on Hover */
 .right-container .star{
   color: orange;
+  font-size: 1.7em;
 }
 
 /* Rating Stars on Click */

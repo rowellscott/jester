@@ -14,6 +14,7 @@ const User = require('./models/user');
 const bcrypt = require('bcrypt');
 const flash = require('connect-flash');
 const FbStrategy = require('passport-facebook').Strategy;
+const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 require("dotenv").config();
 
 mongoose.connect(process.env.MONGODB_URI);
@@ -125,6 +126,33 @@ passport.use('local-login', new LocalStrategy((username, password, next)=>{
         username: profile.displayName,
       });
       console.log(profile)
+      newUser.save((err) => {
+        if (err) {
+          return done(err);
+        }
+        done(null, newUser);
+      });
+    });
+  
+  }));
+
+  passport.use(new GoogleStrategy({
+    clientID: "259985195411-5bjbqtg66jm96hcs04un0f41i4k72cas.apps.googleusercontent.com",
+    clientSecret: "KXiUUTK3UZkIeE3L4nsE_OM8",
+    callbackURL: "/auth/google/callback"
+  }, (accessToken, refreshToken, profile, done) => {
+    User.findOne({ googleID: profile.id }, (err, user) => {
+      if (err) {
+        return done(err);
+      }
+      if (user) {
+        return done(null, user);
+      }
+  
+      const newUser = new User({
+        googleID: profile.id
+      });
+  
       newUser.save((err) => {
         if (err) {
           return done(err);

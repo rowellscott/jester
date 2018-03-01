@@ -9,6 +9,7 @@ const userSchema = new Schema ({
     firstName: String,
     lastName: String,
     facebookID: String,
+    googleID: String,
     dob: Date,
 },  { 
     timestamps: { createdAt: "created_at", updatedAt: "updated_at"}
