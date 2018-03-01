@@ -207,6 +207,7 @@ router.get("/categories/:category", ensureLoggedIn('/login'), (req, res, next)=>
   });
 });
 
+// Route to Find Individual Joke
 // router.get("/joke/:id", ensureLoggedIn('/login'), (req, res, next)=>{
 //   Joke.find({}, (err, jokes)=>{
 //     if(err){return next(err)} 
@@ -226,9 +227,11 @@ router.get("/categories/:category", ensureLoggedIn('/login'), (req, res, next)=>
 //     //Sort Categories Alphabetically
 //     categories.sort();
   
-//     Joke.findById(id, (err, jokes)=>{
+//     Joke.findById(id, (err, joke)=>{
 //       if (err) {return next(err)}
-//         res.render('jokes/main', {jokes: jokes, categories: categories, layout: 'layouts/jokes', user: req.user});
+//       console.log(joke)
+//       res.redirect('/jokes')
+//         res.render('jokes/main', {jokes: joke, categories: categories, layout: 'layouts/jokes', user: req.user});
 //     });
 //   });
 // });
