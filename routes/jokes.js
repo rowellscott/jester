@@ -62,7 +62,7 @@ router.get('/new', ensureLoggedIn('/login'), (req, res, next) => {
       }) 
       //Sort Categories Alphabetically
       categories.sort();
-      res.render('jokes/new', {jokes: jokes, categories: categories, layout: "layouts/jokes", user: req.user});
+      res.render('jokes/new', {jokes: jokes, categories: categories, layout: "layouts/jokes", user: req.user, message: req.flash('add-message')});
   });
 });
 
@@ -97,7 +97,8 @@ router.post('/', ensureLoggedIn('/login'), (req, res, next)=>{
      }
     
     if (content===""){
-        res.redirect('jokes/new');
+      req.flash("add-message", "Please fill in content")
+        return res.redirect('jokes/new');
       }
     
     const jokeInfo = {
@@ -163,7 +164,7 @@ router.get("/:id/edit", (req, res, next)=>{
     var id= req.params.id;
     Joke.findById(id, (err, joke)=>{
       if (err) {return next(err)}
-      res.render('jokes/edit', {categories: categories, layout: "layouts/jokes", user: req.user, joke: joke, message: req.flash('error')})
+      res.render('jokes/edit', {categories: categories, layout: "layouts/jokes", user: req.user, joke: joke, message: req.flash('edit-message')})
     })
   
   })
@@ -171,22 +172,60 @@ router.get("/:id/edit", (req, res, next)=>{
 
 
 //Route for Displaying Category Searches
-router.get("/categories/:category", (req, res, next)=>{
+router.get("/categories/:category", ensureLoggedIn('/login'), (req, res, next)=>{
+  Joke.find({}, (err, jokes)=>{
+    if(err){return next(err)} 
+    //Create a List of Categories to Send to the Display
+    var categories =[];
+    jokes.forEach(joke =>{
+      joke.categories.forEach(category => {
+        if(category ==="None"){
+          return
+        }
+       else if(categories.indexOf(category) === -1){
+          console.log(category)
+          categories.push(category)
+        }
+    })
+    }) 
+    //Sort Categories Alphabetically
+    categories.sort();
+  
     var category = req.params.category;
     console.log(category)
     Joke.find({"categories": { $in : [category]}}, (err, jokes) =>{
         console.log(jokes)
-        
+        res.render('jokes/main', {jokes: jokes, categories: categories, layout: 'layouts/jokes', user: req.user});
     });
-
   });
+});
 // Route for Displaying Keyword Searches 
 router.post('/search', ensureLoggedIn('/login'), (req, res, next)=>{
+  Joke.find({}, (err, jokes)=>{
+    if(err){return next(err)} 
+    //Create a List of Categories to Send to the Display
+    var categories =[];
+    jokes.forEach(joke =>{
+      joke.categories.forEach(category => {
+        if(category ==="None"){
+          return
+        }
+       else if(categories.indexOf(category) === -1){
+          console.log(category)
+          categories.push(category)
+        }
+    })
+    }) 
+    //Sort Categories Alphabetically
+    categories.sort();
+  
+  
   console.log(req.body.query);  
   Joke.find({"content": {"$regex": req.body.query, "$options": "i" }}, (err, jokes)=>{
-    console.log(jokes)
-    // res.render('jokes/main', {jokes: jokes, layout: 'layouts/jokes'});
-    res.redirect('/jokes')
+      console.log(jokes)
+      res.render('jokes/main', {jokes: jokes, categories: categories, layout: 'layouts/jokes', user: req.user});
+      
+    });
   });
 });
 
@@ -225,7 +264,8 @@ router.post("/:id", ensureLoggedIn(), (req, res, next) =>{
     }
     
     if(content===""){
-        res.redirect('/jokes/' + id + '/edit');
+      req.flash("edit-message", "Please fill in content")
+      return res.redirect('/jokes/' + id + "/edit" )
     }
 
     const updates = {
