@@ -15,7 +15,7 @@
           
           <br>
           <!-- Edit Joke Button -->
-          <a href="/jokes/<%= joke._id %>/edit"><button type="button" class="btn">Edit</button></a>
+          <a class="edit-button" href="/jokes/<%= joke._id %>/edit"><button type="button" class="btn">Edit</button></a>
           <!-- Delete Joke Button -->
           <form action ="/jokes/<%= joke._id %>/delete" method="POST">
             <button type="submit" class="btn btn-link">Delete</button>

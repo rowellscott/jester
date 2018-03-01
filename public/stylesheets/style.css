@@ -112,13 +112,15 @@ nav li h5{
   padding-bottom: 3vh;
 }
 
+/* Left Jumbotron on Jokes Page */
 .left-container{
-    width: 15vw;
+    width: 18vw;
     background-color: rgb(139, 39, 39);
     height: 75%;
     float: left;
     box-sizing: border-box;
     border-radius: 10px;
+    font-size: 1.5em;
     /* border: 10px solid black; */
 }
 

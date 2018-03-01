@@ -9,7 +9,7 @@ const jokeSchema= Schema({
   link: String
 },{
     timestamps: { createdAt: "created_at", updatedAt: "updated_at"}
-    }
+  }
 );
 
 const Joke = mongoose.model("Joke", jokeSchema);
