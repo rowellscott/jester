@@ -20,7 +20,6 @@ function getCategories(){
 });
 }
 
-
 router.get('/', ensureLoggedIn('/login'), (req, res, next)=>{
   //Get all jokes from database and send to jokes/main.ejs for display
   Joke.find({}, (err, jokes)=>{
@@ -40,6 +39,7 @@ router.get('/', ensureLoggedIn('/login'), (req, res, next)=>{
         }) 
         //Sort Categories Alphabetically
         categories.sort();
+
         res.render('jokes/main', {jokes: jokes, categories: categories, layout: 'layouts/jokes', user: req.user});
     });
 });
@@ -169,6 +169,7 @@ router.get("/:id/edit", (req, res, next)=>{
     categories.sort();  
     
     var id= req.params.id;
+    console.log(categories)
     Joke.findById(id, (err, joke)=>{
       if (err) {return next(err)}
       res.render('jokes/edit', {categories: categories, layout: "layouts/jokes", user: req.user, joke: joke, message: req.flash('edit-message')})
