@@ -66,6 +66,12 @@ router.get('/new', ensureLoggedIn('/login'), (req, res, next) => {
   });
 });
 
+// Redirect if User Goes to Search
+router.get('/search', ensureLoggedIn('/login'), (req, res, body)=>{
+  res.redirect('/jokes')
+});
+
+
 //Route for Saving a Joke from Add Joke Form
 router.post('/', ensureLoggedIn('/login'), (req, res, next)=>{
     var content = req.body.newContent;
@@ -288,6 +294,7 @@ router.post("/:id", ensureLoggedIn(), (req, res, next) =>{
           res.redirect('/jokes/' + joke.author)
       });
   });
+
 
 
 // router.get("/search", (req, res, next)=>{

@@ -102,6 +102,35 @@ passport.use('local-login', new LocalStrategy((username, password, next)=>{
       });
   }));
 
+  // passport.use(new FbStrategy({
+  //   clientID: "375844716215268",
+  //   clientSecret: "012c2abc0ba4cec0b4ccb35aeefe0396",
+  //   callbackURL: "/auth/facebook/callback",
+  // }, (accessToken, refreshToken, profile, done) => {
+  //   User.findOne({ facebookID: profile.id }, (err, user) => {
+  //     if (err) {
+  //       return done(err);
+  //     }
+  //     if (user) {
+  //       console.log(profile)
+  //       return done(null, user);
+  //     }
+      
+  //     const newUser = new User({
+  //       facebookID: profile.id,
+  //       username: profile.displayName,
+  //     });
+  
+  //     newUser.save((err) => {
+  //       if (err) {
+  //         return done(err);
+  //       }
+  //       done(null, newUser);
+  //     });
+  //   });
+  
+  // }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
