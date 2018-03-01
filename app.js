@@ -108,8 +108,8 @@ passport.use('local-login', new LocalStrategy((username, password, next)=>{
   }));
 
   passport.use(new FbStrategy({
-    clientID: process.env.facebook_id,
-    clientSecret: process.env.facebook_secret,
+    clientID: "375844716215268",
+    clientSecret: '012c2abc0ba4cec0b4ccb35aeefe0396',
     callbackURL: "/auth/facebook/callback",
   }, (accessToken, refreshToken, profile, done) => {
     User.findOne({ facebookID: profile.id }, (err, user) => {

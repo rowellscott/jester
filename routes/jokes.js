@@ -207,35 +207,6 @@ router.get("/categories/:category", ensureLoggedIn('/login'), (req, res, next)=>
   });
 });
 
-// Route to Find Individual Joke
-// router.get("/joke/:id", ensureLoggedIn('/login'), (req, res, next)=>{
-//   Joke.find({}, (err, jokes)=>{
-//     if(err){return next(err)} 
-//     //Create a List of Categories to Send to the Display
-//     var categories =[];
-//     jokes.forEach(joke =>{
-//       joke.categories.forEach(category => {
-//         if(category ==="None"){
-//           return
-//         }
-//        else if(categories.indexOf(category) === -1){
-//           console.log(category)
-//           categories.push(category)
-//         }
-//     })
-//     }) 
-//     //Sort Categories Alphabetically
-//     categories.sort();
-  
-//     Joke.findById(id, (err, joke)=>{
-//       if (err) {return next(err)}
-//       console.log(joke)
-//       res.redirect('/jokes')
-//         res.render('jokes/main', {jokes: joke, categories: categories, layout: 'layouts/jokes', user: req.user});
-//     });
-//   });
-// });
-
 // Route for Displaying Keyword Searches 
 router.post('/search', ensureLoggedIn('/login'), (req, res, next)=>{
   Joke.find({}, (err, jokes)=>{
@@ -337,5 +308,36 @@ router.post("/:id", ensureLoggedIn(), (req, res, next) =>{
 //   Joke.find({})
 //   res.render('jokes/main', {jokes: jokes, layout: 'layouts/jokes'});
 // })
+
+// Route to Find Individual Joke
+// router.get("/joke/:id", ensureLoggedIn('/login'), (req, res, next)=>{
+//   Joke.find({}, (err, jokes)=>{
+//     if(err){return next(err)} 
+//     //Create a List of Categories to Send to the Display
+//     var categories =[];
+//     jokes.forEach(joke =>{
+//       joke.categories.forEach(category => {
+//         if(category ==="None"){
+//           return
+//         }
+//        else if(categories.indexOf(category) === -1){
+//           console.log(category)
+//           categories.push(category)
+//         }
+//     })
+//     }) 
+//     //Sort Categories Alphabetically
+//     categories.sort();
+  
+//     Joke.findById(id, (err, joke)=>{
+//       if (err) {return next(err)}
+//       console.log(joke)
+//       res.redirect('/jokes')
+//         res.render('jokes/main', {jokes: joke, categories: categories, layout: 'layouts/jokes', user: req.user});
+//     });
+//   });
+// });
+
+
 
 module.exports = router
