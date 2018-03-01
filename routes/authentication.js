@@ -27,5 +27,12 @@ router.post('/logout', ensureLoggedIn(), (req, res)=>{
   res.redirect('/login')
 })
 
+router.get("/auth/facebook", passport.authenticate("facebook"));
+router.get("/auth/facebook/callback", passport.authenticate("facebook", {
+  successRedirect: "/jokes",
+  failureRedirect: "/login",
+  failureFlash: true, 
+  passReqToCallback: true
+}));
 
 module.exports = router; 
