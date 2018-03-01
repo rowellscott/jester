@@ -111,7 +111,7 @@ router.post('/', ensureLoggedIn('/login'), (req, res, next)=>{
     
     newJoke.save((err)=>{
         if (err) {return next(err)};
-        res.redirect('/jokes')  
+        res.redirect('/jokes/' + req.user._id)  
     });
 });
 
@@ -137,6 +137,7 @@ router.get("/:id", ensureLoggedIn('/login'), (req, res, next)=>{
      
     Joke.find({author: req.params.id}, (err, jokes)=>{
         console.log(categories)
+        console.log(jokes)
         res.render('jokes/myJokes', {jokes: jokes, categories: categories, layout: 'layouts/jokes', user: req.user});
     }); 
   });

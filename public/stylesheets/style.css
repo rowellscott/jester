@@ -171,7 +171,7 @@ nav li h5{
 
 /* Logout Button */
 #jokes .logout{
-    color: grey;
+    color: rgb(148, 140, 140);
     font-size: 1.1em;
     text-decoration: none;
 }
@@ -205,12 +205,17 @@ nav li h5{
 }
 /* Favorite Button */
 .right-container .favorite{
-  margin-left: 5vw;
+  margin-left: 3vw;
   background-color: white;
 }
 
 .right-container .favorite i{
   font-size: 1.5em;
+}
+
+/* Share Button */
+.right-container .share{
+  margin-left: 3vw;
 }
 
 /* Add New Joke Form */
@@ -226,6 +231,7 @@ nav li h5{
 #new-joke-form h1{
   padding-bottom: 1vh;
 }
+
 #new-joke-form label{
   color: black;
   font-size: 1.3em;
@@ -233,6 +239,12 @@ nav li h5{
 
 #new-joke-form textarea{
   font-size: 1.5em;
+}
+
+/* Edit and Delete Buttons on Edit Form */
+.edit-buttons > a, .edit-buttons > form{
+  margin-left: 3vw;
+  display: inline;
 }
 
 .error-message{

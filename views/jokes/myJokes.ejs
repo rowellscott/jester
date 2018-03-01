@@ -1,3 +1,5 @@
+<% if (jokes.length > 0) {%>
+
 <div class="container right-container">
   <% jokes.forEach(joke => { %>
       <div class="jumbotron">
@@ -12,9 +14,9 @@
           <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='5'></span>
           <span class="rating-value">Avg.<%= joke.rating %></span>
           <button type="button" class="btn favorite"><i class="em em-laughing"></i></button>
-          
-          <br>
-          <div class="btn-group" role="group" aria-label="Edit Buttons">
+          <button type="button" class="btn btn-default share">Share <span class="glyphicon glyphicon-share" aria-hidden="true"></span></button>
+          <!-- <br> -->
+          <div class="btn-group edit-buttons" role="group" aria-label="Edit Buttons">
           <!-- Edit Joke Button -->
             <a class="edit-button" href="/jokes/<%= joke._id %>/edit"><button type="button" class="btn btn-primary">Edit</button></a>
           <!-- Delete Joke Button -->
@@ -24,7 +26,7 @@
           </div>
         </div>
       </div>
-  <% }) %>
-  
-  
+  <% }) %> 
 </div>
+
+<% }%>
