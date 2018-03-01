@@ -7,11 +7,13 @@
       <% } %>
       <div class="form-group">
         <label for="content">Content</label>
-        <textarea name="content" id="content" class="form-control"><%=joke.content%></textarea>
+        <textarea name="content" id="content" class="form-control" rows=4><%=joke.content%></textarea>
       </div>
 
-      <h5>Categories</h5>
+      
       <div class="form-check">
+          <label>Categories</label>
+          <br>
           <% categories.forEach((category)=>{ %>
             <% if (joke.categories.indexOf(category) !== -1) {%>
             <input class="form-check-input" name="editCategory" type="checkbox" value="<%= category %>" id="edit-<%=category %>" checked>
@@ -32,7 +34,7 @@
           <textarea name="newCategories" id="new-categories" class="form-control" placeholder="Separate By Commas and A Space: One-Liner, Jewish, Yo-mama, etc..."></textarea>
       </div>
       <button type="submit" class="btn btn-primary" id="new-joke-button">Save Changes</button>
-      <button class="btn btn-primary"><a href="/jokes/<%= user._id%>">Cancel</a></button>
+      <a href="/jokes/<%= user._id%>" class="btn btn-primary" role="button" aria-pressed="true">Cancel</a>
     </form>
    
   </div>
