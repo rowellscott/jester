@@ -22,19 +22,21 @@ body{
 
 a {
   color:white;
+  font-size: 1.4em;
 }
 
 /* Navbar Styling */
 nav .top{
   background-color: rgb(151, 21, 21);
   padding: 1vh;
+  margin-bottom: 1vh;
 }
 
 /* Brand Logo */
 nav .jester-logo{
   font-family: Caveat;
   color: White;
-  font-size: 3em;
+  font-size: 3.5em;
 }
 
 /* Jokes Page Links */
@@ -61,7 +63,7 @@ nav li h5{
   background-size: cover;
 }
 
-/* App Info on Home Page */
+/* App Info Container on Home Page */
 .main-container .app-info{
   padding-top: 10vh;
 }
@@ -72,21 +74,34 @@ nav li h5{
 };
 
 /* App Sign-Up Form Bottom Text */
-.jumbotron p{
-  float: right; 
-  padding-top: 10px;
-  font-size: 10em;
+#main .sign-up-form-bottom{
+  text-align: center;
 }
 
-/* Jumbotron Styling */
+/* Login Link in Sign-Up Form */
+#main .sign-up-form-bottom a{
+  text-decoration: none;
+  margin-left: 1.3vw;
+  font-size: 1.1em;
+}
+
+/* Sign-Up Form Header */
 .main-container .jumbotron h2{
   color: white;
+  text-align: center;
 }
 
+/* Sign-Up Form Jumbotron */
 .main-container .container .jumbotron {
   margin-top: 3vh;
   background-color: black;
   border-radius: 10px;
+}
+
+/* Sign-Up Form Label Styling */
+.main-container label{
+    color: white;
+    font-size: 1.2em;
 }
 
 /* Login Jumbotron Container */
@@ -95,6 +110,7 @@ nav li h5{
   text-align: center
 }
 
+/* Login Jumbotron Header */
 .main-container .login h2{
   padding-bottom: 1vh;
 }
@@ -106,6 +122,12 @@ nav li h5{
 
 #jokes a, h5{
   color: white;
+  text-decoration: none
+}
+
+#jokes a:hover{
+  color: rgb(70,140,200);
+  text-decoration: none
 }
 
 #jokes .username{
@@ -114,7 +136,7 @@ nav li h5{
 
 /* Left Jumbotron on Jokes Page */
 .left-container{
-    width: 18vw;
+    width: 18.5vw;
     background-color: rgb(139, 39, 39);
     height: 75%;
     float: left;
@@ -129,14 +151,33 @@ nav li h5{
   color: white;
 }
 
+.left-container .search-button{
+    margin-top: 1vh;
+}
+
+.left-container .categories-link{  
+  font-size: .8em;
+}
+
 /* Category Dropdown Menu */
-.categories{
+.left-container .categories{
   background-color :rgb(149,23,27);
   border-radius: 10px;
 }
 
-.categories li{
+.left-container .categories li{
   color: black;
+}
+
+/* Logout Button */
+#jokes .logout{
+    color: grey;
+    font-size: 1.1em;
+    text-decoration: none;
+}
+
+#jokes .logout:hover{
+  color: rgb(70,140,200)
 }
 
 .right-container{
@@ -179,6 +220,15 @@ nav li h5{
   width: 70vw;
   border-radius: 10px;
   height: 70vh;
+}
+
+/* Add Form Header */
+#new-joke-form h1{
+  padding-bottom: 1vh;
+}
+#new-joke-form label{
+  color: black;
+  font-size: 1.3em;
 }
 
 .error-message{

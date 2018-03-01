@@ -33,7 +33,7 @@
     
             <div class="collapse navbar-collapse" id="home-nav">
               <ul class="nav navbar-nav">
-                <li><a class="jester-logo navbar-brand" href="/jokes">Jester</a></li>
+                <li class="jester-logo navbar-brand">Jester</li>
                 <li class="nav-logo">
                   <!-- <a href="#" class="nav-logo-link">
                     <img class="nav-logo-image" src="https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_8c904a3bee158b96cdaf0cad6900b4b2.png" alt="Kickstarter Logo">
@@ -44,10 +44,10 @@
                 <!-- <li><a href="/jokes">All</a></li> -->
                 <li><h5><a href="/jokes/<%= user._id %>">MyJokes</a></h5></li>
                 <li><h5><a href="/jokes/new">Add A Joke</a></h5></li>
-                <li><h5><a href="#">Favorites</a></h5></li>
+                <!-- <li><h5><a href="#">Favorites</a></h5></li> -->
                 <li>
                   <form action="/logout" method="post">
-                    <button class="btn btn-link" type="submit">Logout</button>
+                    <button class="btn btn-link logout" type="submit">Logout</button>
                   </form>
                 </li>
               </ul>
@@ -65,14 +65,14 @@
             <form id="search" action="/jokes/search" method="POST">
               <label for="search-input" class="search-label">Keyword Search:</label>
               <input id="search-input" type="text" name="query" class="form-control">
-              <button class="btn" type="submit" id="search-button">Search</button>
+              <button class="btn search-button" type="submit" id="search-button">Search</button>
             </form>
             <br>
             
             <!-- Categories Dropdown Menu -->
             <div class="dropdown" aria-labelledby="dropdownMenuButton">  
               <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                Categories
+                <span class="categories-link">Categories</span>
                 <span class="caret"></span>
               </a>
               <div class="dropdown-menu categories">
