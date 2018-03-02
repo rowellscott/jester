@@ -11,6 +11,7 @@ const userSchema = new Schema ({
     facebookID: String,
     googleID: String,
     dob: Date,
+    favorites: Array
 },  { 
     timestamps: { createdAt: "created_at", updatedAt: "updated_at"}
     }

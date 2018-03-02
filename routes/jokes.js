@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router(); 
 const {ensureLoggedIn, ensureLoggedOut} = require('connect-ensure-login')
 const Joke = require('../models/joke')
+const User = require('../models/user')
 
 const categories= []
 function getCategories(){
@@ -297,7 +298,20 @@ router.post("/:id", ensureLoggedIn(), (req, res, next) =>{
       });
   });
 
-
+// Favorites Button Handler
+// router.post('/joke/:id', (req, res, next)=>{
+//     Joke.findById(req.params.id, (err, joke)=>{
+//         if(err){return next(err)}
+//         console.log(joke)
+//         console.log(req)
+//     User.findById(req.user.id, (err, user)=>{
+//         if(err){return next(err)}
+//         user.favorites.push(joke._id);
+//         console.log(user.favorites)
+//       })
+//     })
+//     res.redirect(req.res._headers.location);
+// })
 
 // router.get("/search", (req, res, next)=>{
 //   res.redirect('/jokes');

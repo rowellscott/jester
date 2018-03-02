@@ -44,9 +44,6 @@ app.use(session({
     store: new MongoStore( {mongooseConnection: mongoose.connection})
 }));
 
-
-
-
 passport.serializeUser((user, cb) => {
   cb(null, user.id);
 });
