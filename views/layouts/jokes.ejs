@@ -45,7 +45,7 @@
                 <!-- <li><a href="/jokes">All</a></li> -->
                 <li><h5><a href="/jokes/<%= user._id %>">MyJokes</a></h5></li>
                 <li><h5><a href="/jokes/new">Add A Joke</a></h5></li>
-                <!-- <li><h5><a href="#">Favorites</a></h5></li> -->
+                <li><h5><a href="/favorites/<%= user._id %>">Favorites</a></h5></li>
                 <li>
                   <form action="/logout" method="post">
                     <button class="btn btn-link logout" type="submit">Logout</button>

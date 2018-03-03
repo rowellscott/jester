@@ -105,8 +105,8 @@ passport.use('local-login', new LocalStrategy((username, password, next)=>{
   }));
 
   passport.use(new FbStrategy({
-    clientID: "375844716215268",
-    clientSecret: '012c2abc0ba4cec0b4ccb35aeefe0396',
+    clientID: process.env.facebook_id,
+    clientSecret: process.env.facebook_secret,
     callbackURL: "/auth/facebook/callback",
   }, (accessToken, refreshToken, profile, done) => {
     User.findOne({ facebookID: profile.id }, (err, user) => {
@@ -134,7 +134,7 @@ passport.use('local-login', new LocalStrategy((username, password, next)=>{
   }));
 
   passport.use(new GoogleStrategy({
-    clientID: "259985195411-5bjbqtg66jm96hcs04un0f41i4k72cas.apps.googleusercontent.com",
+    clientID: process.env.google_id,
     clientSecret: "KXiUUTK3UZkIeE3L4nsE_OM8",
     callbackURL: "/auth/google/callback"
   }, (accessToken, refreshToken, profile, done) => {
@@ -178,6 +178,8 @@ const authRoutes = require('./routes/authentication');
 app.use('/', authRoutes)
 const jokeRoutes = require('./routes/jokes');
 app.use('/jokes', jokeRoutes)
+const featureRoutes = require('./routes/features');
+app.use('/', featureRoutes)
 
 
 // catch 404 and forward to error handler

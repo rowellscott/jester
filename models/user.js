@@ -11,7 +11,7 @@ const userSchema = new Schema ({
     facebookID: String,
     googleID: String,
     dob: Date,
-    favorites: Array
+    favorites: [{type: Schema.Types.ObjectId, ref: "Joke"}]
 },  { 
     timestamps: { createdAt: "created_at", updatedAt: "updated_at"}
     }

@@ -12,7 +12,16 @@
             <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='5'></span>
             <span class="rating-value">Avg.<%= joke.rating %></span>
             <!-- <form action="/jokes/joke/<%= joke._id %>" method="POST"> -->
-            <button type="submit" class="btn favorite"><i class="em em-laughing"></i></button>
+           
+            <% if (user.favorites.indexOf(joke._id) === -1 ){ %>
+            <form action="/favorites/<%= user._id %>/<%= joke._id %>" method="POST">
+                <button type="submit" class="btn favorite"><i class="em em-laughing"></i></button>
+            </form>
+            <% } else {%>
+            <form action="/favorites/<%= user._id %>/<%= joke._id %>" method="POST">
+                <button type="submit" class="btn favorited"><i class="em em-laughing"></i></button>
+            </form>
+            <% } %>
             <!-- </form> -->
             <button type="button" class="btn btn-default share">Share  <span class="glyphicon glyphicon-share" aria-hidden="true"></span></button>
           </div>

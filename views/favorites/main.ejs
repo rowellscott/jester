@@ -1,0 +1,23 @@
+<div class="container right-container">
+  <% jokes.forEach(joke => { %>
+      <div class="jumbotron">
+          <span class="joke"><%= joke.content %></span>
+          <br>
+          <br>
+          <div class="rating">
+          <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='1'></span>
+          <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='2'></span>
+          <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='3'></span>
+          <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='4'></span>
+          <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='5'></span>
+          <span class="rating-value">Avg.<%= joke.rating %></span>
+          <!-- <form action="/jokes/joke/<%= joke._id %>" method="POST"> -->
+          <button type="submit" class="btn favorite"><i class="em em-laughing"></i></button>
+          <!-- </form> -->
+          <button type="button" class="btn btn-default share">Share  <span class="glyphicon glyphicon-share" aria-hidden="true"></span></button>
+        </div>
+      </div>
+  <% }) %>
+
+  
+</div>
