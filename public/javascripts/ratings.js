@@ -23,8 +23,11 @@ $(document).on('mouseover', ".star", function(){
 //Click Rating Stars
 $(document).on('click', ".glyphicon-star", function(){
   var onStar = parseInt($(this).data('value'), 10)
+  //Submit Form to to Star's Post Route in Ratings.js
+  document.getElementById('star-' + onStar).submit();
+  
   var stars = $(this).parent().children('.star');
-    console.log(onStar)
+    console.log(stars)
     for (i = 0; i < stars.length; i++) {
       $(stars[i]).removeClass('selected');
     }

@@ -231,6 +231,11 @@ nav li h5{
   margin-left: 3vw;
 }
 
+/* Display All Features in Joke Containers Inline */
+.right-container form{
+  display: inline;
+}
+
 /* Add New Joke Form */
 #new-joke-form .right-container{
   background-color: rgb(172, 164, 164);

@@ -60,6 +60,30 @@ router.post('/favorites/:user_id/:joke', ensureLoggedIn('/login'), (req, res) =>
    })
 })
 
+router.post("/ratings/:joke/:rating", (req, res, next)=>{
+      
+        Joke.findById({"_id": req.params.joke}, "rating ratingCount _id", (err, joke)=>{
+                if(err){return next(err)}
+                console.log(joke)
+                let currentRating = joke.rating;
+                let userRating = parseInt(req.params.rating, 10); 
+                let count = joke.ratingCount;
+                if(count >0){
+                  let newRating = ((currentRating * count) + userRating) / count +1
+                  joke.rating = newRating.toFixed(1)
+                } else {
+                  joke.rating = userRating
+                }
+                
+                joke.ratingCount = count+ 1;
+                
 
+                joke.save((err)=>{
+                  if(err){return next(err)};
+                  res.redirect('/jokes')
+                })
+        })
+
+});
 
 module.exports = router 
