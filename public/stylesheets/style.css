@@ -233,7 +233,7 @@ nav li h5{
 
 /* Display All Features in Joke Containers Inline */
 .right-container form{
-  display: inline;
+  display: inline-block;
 }
 
 

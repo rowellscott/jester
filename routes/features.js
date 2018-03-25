@@ -5,7 +5,7 @@ const Joke = require('../models/joke')
 const User = require('../models/user')
 
 //Display User's Favorites List
-router.get('/favorites/:id', (req, res, next)=>{
+router.get('/favorites/:id', ensureLoggedIn('/login'), (req, res, next)=>{
   User.findOne({"_id": req.params.id}, "_id favorites").exec((err, user) =>{
     if (!user) {return next(err)}
     Joke.find({"_id" : {"$in" : user.favorites}}, (err, favorites)=>{
@@ -60,7 +60,7 @@ router.post('/favorites/:user_id/:joke', ensureLoggedIn('/login'), (req, res) =>
    })
 })
 
-router.post("/ratings/:joke/:rating", (req, res, next)=>{
+router.post("/ratings/:joke/:rating", ensureLoggedIn('/login'),  (req, res, next)=>{
       
         Joke.findById({"_id": req.params.joke}, "rating ratingCount _id", (err, joke)=>{
                 if(err){return next(err)}
@@ -86,10 +86,41 @@ router.post("/ratings/:joke/:rating", (req, res, next)=>{
 
                 joke.save((err)=>{
                   if(err){return next(err)};
-                  // res.redirect('/jokes')
+                  res.redirect('/jokes')
                 })
         })
 
 });
+
+router.get('/share/:jokeId', ensureLoggedIn('/login'), (req, res, next) =>{
+  Joke.findById({"_id": req.params.jokeId}, (err, Thejoke)=>{
+  
+    Joke.find({}, (err, jokes)=>{
+      if(err){return next(err)} 
+      //Create a List of Categories to Send to the Display
+      var categories =[];
+      
+      jokes.forEach(joke =>{
+        joke.categories.forEach(category => {
+            if(category ==="None"){
+              return
+            }
+           else if(categories.indexOf(category) === -1){
+              console.log(category)
+              categories.push(category)
+            }
+        })
+      }) 
+      //Sort Categories Alphabetically
+        categories.sort();
+      
+        //Cast the Joke As An Array For forEach in main.ejs
+         Thejoke = [Thejoke];
+        // console.log(user.favorites)
+        res.render("jokes/main", {categories: categories, jokes: Thejoke, layout: 'layouts/jokes', user: req.user})
+    })
+  })
+})
+
 
 module.exports = router 

@@ -1,5 +1,9 @@
 let jokeRatingsUpdates = []
 
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+
 $(document).on('mouseover', ".star", function(){
   var onStar = parseInt($(this).data('value'), 10)
   
