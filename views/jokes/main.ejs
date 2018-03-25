@@ -4,6 +4,7 @@
             <span class="joke"><%= joke.content %></span>
             <br>
             <br>
+            <div class="features">
             <div class="rating">
             <form action="/ratings/<%= joke._id %>/1" method="POST" id='star-1'>
                 <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='1'></span>
@@ -21,7 +22,8 @@
                 <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='5'></span>
             </form>
             <span class="rating-value">Avg.<%= joke.rating %></span>
-         
+            </div>
+           
            <!-- If The Joke Isn't In the User's Favorites List -->
             <% if (user.favorites.indexOf(joke._id) === -1 ){ %>
             <form action="/favorites/<%= user._id %>/<%= joke._id %>" method="POST">
@@ -34,8 +36,9 @@
             <% } %>
             <!-- </form> -->
             <button type="button" class="btn btn-default share">Share  <span class="glyphicon glyphicon-share" aria-hidden="true"></span></button>
-          </div>
+          
         </div>
+    </div>
     <% }) %>
     
     

@@ -64,15 +64,21 @@ router.post("/ratings/:joke/:rating", (req, res, next)=>{
       
         Joke.findById({"_id": req.params.joke}, "rating ratingCount _id", (err, joke)=>{
                 if(err){return next(err)}
-                console.log(joke)
+                console.log("joke:", joke)
                 let currentRating = joke.rating;
+
                 let userRating = parseInt(req.params.rating, 10); 
+                console.log("userRating:", userRating)
                 let count = joke.ratingCount;
-                if(count >0){
-                  let newRating = ((currentRating * count) + userRating) / count +1
+                if(count > 0){
+
+                  let newRating = ((currentRating * count) + userRating) / (count +1)
                   joke.rating = newRating.toFixed(1)
+                  console.log("Joke Rating:", joke.rating)
                 } else {
                   joke.rating = userRating
+                  console.log("Joke Rating:", joke.rating)
+                  
                 }
                 
                 joke.ratingCount = count+ 1;
@@ -80,7 +86,7 @@ router.post("/ratings/:joke/:rating", (req, res, next)=>{
 
                 joke.save((err)=>{
                   if(err){return next(err)};
-                  res.redirect('/jokes')
+                  // res.redirect('/jokes')
                 })
         })
 
