@@ -23,6 +23,7 @@
     "mongoose": "^5.0.7",
     "mongoose-type-email": "^1.0.5",
     "morgan": "~1.9.0",
+    "node-url-shortener": "^1.0.1",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",

@@ -229,6 +229,13 @@ nav li h5{
 /* Share Button */
 .right-container .share{
   margin-left: 3vw;
+ 
+}
+
+.right-container .share-link {
+  word-wrap: break-word;
+  font-size: 1.5rem;
+  color: steelblue !important; 
 }
 
 /* Display All Features in Joke Containers Inline */

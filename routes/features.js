@@ -3,6 +3,8 @@ const router = express.Router();
 const {ensureLoggedIn, ensureLoggedOut} = require('connect-ensure-login')
 const Joke = require('../models/joke')
 const User = require('../models/user')
+const shortUrl = require('node-url-shortener');
+
 
 //Display User's Favorites List
 router.get('/favorites/:id', ensureLoggedIn('/login'), (req, res, next)=>{

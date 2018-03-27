@@ -3,6 +3,8 @@ const router = express.Router();
 const {ensureLoggedIn, ensureLoggedOut} = require('connect-ensure-login')
 const Joke = require('../models/joke')
 const User = require('../models/user')
+const shortUrl = require('node-url-shortener');
+const urlBase = 'http://localhost:3000/share/' 
 
 const categories= []
 function getCategories(){
@@ -40,8 +42,7 @@ router.get('/', ensureLoggedIn('/login'), (req, res, next)=>{
         }) 
         //Sort Categories Alphabetically
         categories.sort();
-
-        res.render('jokes/main', {jokes: jokes, categories: categories, layout: 'layouts/jokes', user: req.user});
+        res.render('jokes/main', {jokes: jokes, categories: categories, layout: 'layouts/jokes', urlBase: urlBase, user: req.user});
     });
 });
 
@@ -142,6 +143,7 @@ router.get("/:id", ensureLoggedIn('/login'), (req, res, next)=>{
     //Sort Categories Alphabetically
     categories.sort();
      
+    // Find Jokes Associated With User
     Joke.find({author: req.params.id}, (err, jokes)=>{
         console.log(categories)
         console.log(jokes)

@@ -4,6 +4,21 @@ $(function () {
   $('[data-toggle="popover"]').popover()
 })
 
+
+  $(document).on('click', '#favorites-off-button', function(e) {
+    e.preventDefault();
+    $('#favorites-off').submit();
+    return false;
+   });
+
+   $(document).on('click', '#favorites-on-button', function(e) {
+    e.preventDefault();
+    $('#favorites-on').submit();
+    return false;
+   });
+
+
+
 $(document).on('mouseover', ".star", function(){
   var onStar = parseInt($(this).data('value'), 10)
   
