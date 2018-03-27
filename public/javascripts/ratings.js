@@ -5,17 +5,17 @@ $(function () {
 })
 
 
-  $(document).on('click', '#favorites-off-button', function(e) {
-    e.preventDefault();
-    $('#favorites-off').submit();
-    return false;
-   });
+  // $('#favorites-on').on('submit', function(e) {
+  //   e.preventDefault();
+  //   console.log($('#favorites-on').attr('action'))
+  //   $.post(`http://localhost:3000${$('#favorites-on').attr('action')}`, {}) 
+    
+  //  });
 
-   $(document).on('click', '#favorites-on-button', function(e) {
-    e.preventDefault();
-    $('#favorites-on').submit();
-    return false;
-   });
+  //  $(document).on('click', '#favorites-on-button', function(e) {
+  //   $('#favorites-on').submit();
+  //   e.preventDefault();
+  //  });
 
 
 

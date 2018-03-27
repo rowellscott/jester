@@ -4,7 +4,7 @@ const {ensureLoggedIn, ensureLoggedOut} = require('connect-ensure-login')
 const Joke = require('../models/joke')
 const User = require('../models/user')
 const shortUrl = require('node-url-shortener');
-const urlBase = 'http://localhost:3000/share/' 
+const urlBase = 'http://localhost:3000' 
 
 const categories= []
 function getCategories(){
@@ -42,6 +42,8 @@ router.get('/', ensureLoggedIn('/login'), (req, res, next)=>{
         }) 
         //Sort Categories Alphabetically
         categories.sort();
+
+        req.session.current_url = urlBase + '/jokes'
         res.render('jokes/main', {jokes: jokes, categories: categories, layout: 'layouts/jokes', urlBase: urlBase, user: req.user});
     });
 });
@@ -142,11 +144,12 @@ router.get("/:id", ensureLoggedIn('/login'), (req, res, next)=>{
     }) 
     //Sort Categories Alphabetically
     categories.sort();
-     
+    req.session.current_url = urlBase + '/jokes/' + req.params.id
     // Find Jokes Associated With User
     Joke.find({author: req.params.id}, (err, jokes)=>{
         console.log(categories)
         console.log(jokes)
+        req.session.current_url = urlBase + '/jokes/' + req.params.id
         res.render('jokes/myJokes', {jokes: jokes, categories: categories, layout: 'layouts/jokes', user: req.user});
     }); 
   });
@@ -204,6 +207,7 @@ router.get("/categories/:category", ensureLoggedIn('/login'), (req, res, next)=>
   
     var category = req.params.category;
     console.log(category)
+    req.session.current_url = urlBase + '/jokes/categories/' + req.params.category
     Joke.find({"categories": { $in : [category]}}, (err, jokes) =>{
         console.log(jokes)
         res.render('jokes/main', {jokes: jokes, categories: categories, layout: 'layouts/jokes', user: req.user});
@@ -230,7 +234,7 @@ router.post('/search', ensureLoggedIn('/login'), (req, res, next)=>{
     }) 
     //Sort Categories Alphabetically
     categories.sort();
-  
+    
   
   console.log(req.body.query);  
   Joke.find({"content": {"$regex": req.body.query, "$options": "i" }}, (err, jokes)=>{

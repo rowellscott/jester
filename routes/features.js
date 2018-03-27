@@ -3,7 +3,7 @@ const router = express.Router();
 const {ensureLoggedIn, ensureLoggedOut} = require('connect-ensure-login')
 const Joke = require('../models/joke')
 const User = require('../models/user')
-const shortUrl = require('node-url-shortener');
+const urlBase = 'http://localhost:3000' 
 
 
 //Display User's Favorites List
@@ -30,7 +30,7 @@ router.get('/favorites/:id', ensureLoggedIn('/login'), (req, res, next)=>{
       }) 
       //Sort Categories Alphabetically
         categories.sort();
-
+        req.session.current_url = urlBase + '/favorites/' + req.params.id
         console.log(user.favorites)
         res.render("jokes/main", {categories: categories, jokes: favorites, layout: 'layouts/jokes', user: req.user})
       })
@@ -57,7 +57,7 @@ router.post('/favorites/:user_id/:joke', ensureLoggedIn('/login'), (req, res) =>
             
             user.save((err) =>{
               if(err){return next(err)};
-              res.redirect('/jokes')
+              res.redirect(req.session.current_url)
             })  
    })
 })
@@ -88,7 +88,7 @@ router.post("/ratings/:joke/:rating", ensureLoggedIn('/login'),  (req, res, next
 
                 joke.save((err)=>{
                   if(err){return next(err)};
-                  res.redirect('/jokes')
+                  res.redirect(req.session.current_url)
                 })
         })
 
