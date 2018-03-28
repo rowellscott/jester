@@ -98,9 +98,14 @@ router.post("/ratings/:joke/:rating", ensureLoggedIn('/login'),  (req, res, next
 
 router.get('/share/:jokeId', ensureLoggedIn('/login'), (req, res, next) =>{
   Joke.findById({"_id": req.params.jokeId}, (err, Thejoke)=>{
-  
+    if(err){
+      console.log("Share Error:", err);
+      return next(err)
+    }
+    
     Joke.find({}, (err, jokes)=>{
-      if(err){return next(err)} 
+      if(err){
+        return next(err)} 
       //Create a List of Categories to Send to the Display
       var categories =[];
       

@@ -42,7 +42,6 @@ router.get('/', ensureLoggedIn('/login'), (req, res, next)=>{
         }) 
         //Sort Categories Alphabetically
         categories.sort();
-        console.log(jokes[0]._id)
         req.session.current_url = urlBase + '/jokes'
         res.render('jokes/main', {jokes: jokes, categories: categories, layout: 'layouts/jokes', urlBase: urlBase, user: req.user});
     });
