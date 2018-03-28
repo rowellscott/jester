@@ -76,7 +76,8 @@ passport.use('local-signup', new LocalStrategy(
                   email,
                   firstName,
                   lastName,
-                  dob
+                  dob,
+                  favorites: []
                 });
 
                 newUser.save((err) => {
