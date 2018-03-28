@@ -3,7 +3,7 @@ const router = express.Router();
 const {ensureLoggedIn, ensureLoggedOut} = require('connect-ensure-login')
 const Joke = require('../models/joke')
 const User = require('../models/user')
-const urlBase = 'https://jester-app.herokuapp.com' 
+const urlBase = 'http://jester-app.herokuapp.com' 
 
 
 //Display User's Favorites List
@@ -90,8 +90,7 @@ router.post("/ratings/:joke/:rating", ensureLoggedIn('/login'),  (req, res, next
 
                 joke.save((err)=>{
                   if(err){return next(err)};
-                  // res.redirect(req.session.current_url)
-                  res.redirect('/jokes')
+                  res.redirect(req.session.current_url)
                 })
         })
 
