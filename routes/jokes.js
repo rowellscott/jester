@@ -4,7 +4,7 @@ const {ensureLoggedIn, ensureLoggedOut} = require('connect-ensure-login')
 const Joke = require('../models/joke')
 const User = require('../models/user')
 const shortUrl = require('node-url-shortener');
-const urlBase = 'https://jester-app.herokuapp.com' 
+const urlBase = 'http://localhost:3000' 
 
 const categories= []
 function getCategories(){

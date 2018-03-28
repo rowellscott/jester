@@ -95,7 +95,7 @@ $(document).on('click', ".glyphicon-star", function(){
     $(stars[i]).addClass('glyphicon-star-empty');
     // console.log("removed stars::", $(stars[i]))
   } 
-})
+});
 
 
 // $(window).on("beforeunload", function(e) {
