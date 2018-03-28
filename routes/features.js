@@ -90,7 +90,8 @@ router.post("/ratings/:joke/:rating", ensureLoggedIn('/login'),  (req, res, next
 
                 joke.save((err)=>{
                   if(err){return next(err)};
-                  res.redirect(req.session.current_url)
+                  // res.redirect(req.session.current_url)
+                  res.redirect('/jokes')
                 })
         })
 
