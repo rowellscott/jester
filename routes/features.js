@@ -65,7 +65,9 @@ router.post('/favorites/:user_id/:joke', ensureLoggedIn('/login'), (req, res) =>
 router.post("/ratings/:joke/:rating", ensureLoggedIn('/login'),  (req, res, next)=>{
       
         Joke.findById({"_id": req.params.joke}, "rating ratingCount _id", (err, joke)=>{
-                if(err){return next(err)}
+                if(err){
+                  console.log(err)
+                  return next(err)}
                 console.log("joke:", joke)
                 let currentRating = joke.rating;
 
