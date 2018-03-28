@@ -99,7 +99,7 @@ router.post("/ratings/:joke/:rating", ensureLoggedIn('/login'),  (req, res, next
 router.get('/share/:jokeId', ensureLoggedIn('/login'), (req, res, next) =>{
   Joke.findById({"_id": req.params.jokeId}, (err, Thejoke)=>{
     console.log("Share Joke:", Thejoke)
-    
+    console.log("Share Joke Id:"), req.params.jokeId
     if(err){
       console.log("Share Error:", err);
       return next(err)
