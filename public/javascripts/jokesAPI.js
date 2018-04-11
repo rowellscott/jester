@@ -3,33 +3,29 @@
 const API = "http://localhost:3000";
 
 $(document).ready(() => {
-  const favButtons = document.getElementsByClassName("favorite");
-  const favButtons = document.getElementsByClassName("favorited");
+  const favButtons = document.getElementsByClassName("fav");
 
-  console.log(favButtons, favoritedButtons);
-  for (var i = 0; i < favButtons.length; i++) {
-    console.log(favButtons[i]);
-  }
+  Array.from(favButtons).forEach(element => {
+    const fav = element.querySelectorAll("button");
+    console.log(fav);
+    element.addEventListener("click", function(e) {
+      e.preventDefault();
+      console.log(e.currentTarget);
+      const userID = e.currentTarget.dataset.user;
+      const jokeID = e.currentTarget.dataset.joke;
 
-  // Array.from(document.getElementsByClassName("favorite favorited")).forEach(
-  //   element => {
-  //     console.log(element);
-  //     element.addEventListener(click, function(e) {
-  //       e.preventDefault();
-  //       console.log(e.target);
-  //       const userID = e.target.dataset.user;
-  //       const jokeID = e.target.dataset.joke;
-  //       axios
-  //         .post(`${API}/favorites/${userID}/${jokeID}`, {})
-  //         .then(res => {
-  //           console.log(success);
-  //         })
-  //         .catch(err => {
-  //           console.log(err);
-  //         });
-  //     });
-  //   }
-  // );
+      //Toggle Background Color
+      e.currentTarget.classList.toggle("favorited");
+      axios
+        .post(`${API}/favorites/${userID}/${jokeID}`, {})
+        .then(res => {
+          console.log(res.status);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    });
+  });
 });
 
 //   // List All Jokes

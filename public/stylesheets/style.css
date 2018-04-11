@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Caveat');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url("https://fonts.googleapis.com/css?family=Caveat");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
 
-body{
+body {
   font: 14px "Open Sans", Helvetica, Arial, sans-serif;
 }
 /* Body for Main-Layout */
 #main {
-  background-image: url('https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX11440907.jpg');
+  background-image: url("https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX11440907.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
@@ -14,77 +14,76 @@ body{
 
 /* Body for Jokes-Layout */
 #jokes {
-  background-image: url('https://data.whicdn.com/images/192740179/superthumb.jpg');
+  background-image: url("https://data.whicdn.com/images/192740179/superthumb.jpg");
   background-repeat: repeat-y;
   background-size: cover;
   /* background-color: rgb(230,236,240) */
 }
 
 a {
-  color:white;
+  color: white;
   font-size: 1.4em;
 }
 
 /* Navbar Styling */
-nav .top{
+nav .top {
   background-color: rgb(151, 21, 21);
   padding: 1vh;
   margin-bottom: 1vh;
 }
 
 /* Brand Logo */
-nav .jester-logo{
+nav .jester-logo {
   font-family: Caveat;
   color: White;
   font-size: 3.5em;
 }
 
 /* Jokes Page Links */
-nav li h5{
+nav li h5 {
   padding: 0 1vw;
 }
 
-
-.main-container h1{
+.main-container h1 {
   color: white;
 }
 
-.main-container{
-   position: relative; 
-   bottom: 4vh;
-   padding-top: 2vh;
+.main-container {
+  position: relative;
+  bottom: 4vh;
+  padding-top: 2vh;
 }
 /* Background Image for Home Page Container */
-.main-container.bg{
-  background-image: url('https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX11440907.jpg');
+.main-container.bg {
+  background-image: url("https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX11440907.jpg");
   background-repeat: repeat-y;
   background-size: cover;
 }
 
 /* App Info Container on Home Page */
-.main-container .app-info{
+.main-container .app-info {
   padding-top: 10vh;
 }
 
 /* App Info Text on Home Page */
-.main-container .app-info-text{
+.main-container .app-info-text {
   font-size: 4em;
-};
+}
 
 /* App Sign-Up Form Bottom Text */
-#main .sign-up-form-bottom{
+#main .sign-up-form-bottom {
   text-align: center;
 }
 
 /* Login Link in Sign-Up Form */
-#main .sign-up-form-bottom a{
+#main .sign-up-form-bottom a {
   text-decoration: none;
   margin-left: 1.3vw;
   font-size: 1.1em;
 }
 
 /* Sign-Up Form Header */
-.main-container .jumbotron h2{
+.main-container .jumbotron h2 {
   color: white;
   text-align: center;
 }
@@ -97,97 +96,98 @@ nav li h5{
 }
 
 /* Sign-Up Form Label Styling */
-.main-container label{
-    color: white;
-    font-size: 1.2em;
+.main-container label {
+  color: white;
+  font-size: 1.2em;
 }
 
 /* Facebook Button */
-.facebook{
+.facebook {
   background-color: blue;
 }
 
-.google{
+.google {
   background-color: #dd4b39;
 }
 
 /* Login Jumbotron Container */
-.main-container .login{
+.main-container .login {
   margin: 5vh auto;
-  text-align: center
+  text-align: center;
 }
 
 /* Login Jumbotron Header */
-.main-container .login h2{
+.main-container .login h2 {
   padding-bottom: 1vh;
 }
 
 /* Jokes Page Classes */
-.jokes-container{
+.jokes-container {
   padding: 15px 30px;
 }
 
-#jokes a, h5{
+#jokes a,
+h5 {
   color: white;
-  text-decoration: none
+  text-decoration: none;
 }
 
-#jokes a:hover{
-  color: rgb(70,140,200);
-  text-decoration: none
+#jokes a:hover {
+  color: rgb(70, 140, 200);
+  text-decoration: none;
 }
 
-#jokes .username{
+#jokes .username {
   padding-bottom: 3vh;
 }
 
 /* Left Jumbotron on Jokes Page */
-.left-container{
-    width: 18.5vw;
-    background-color: rgb(139, 39, 39);
-    height: 75%;
-    float: left;
-    box-sizing: border-box;
-    border-radius: 10px;
-    font-size: 1.5em;
-    /* border: 10px solid black; */
+.left-container {
+  width: 18.5vw;
+  background-color: rgb(139, 39, 39);
+  height: 75%;
+  float: left;
+  box-sizing: border-box;
+  border-radius: 10px;
+  font-size: 1.5em;
+  /* border: 10px solid black; */
 }
 
 /* Search Label */
-.left-container .search-label{
+.left-container .search-label {
   color: white;
 }
 
-.left-container .search-button{
-    margin-top: 1vh;
+.left-container .search-button {
+  margin-top: 1vh;
 }
 
-.left-container .categories-link{  
-  font-size: .8em;
+.left-container .categories-link {
+  font-size: 0.8em;
 }
 
 /* Category Dropdown Menu */
-.left-container .categories{
-  background-color :rgb(149,23,27);
+.left-container .categories {
+  background-color: rgb(149, 23, 27);
   border-radius: 10px;
 }
 
-.left-container .categories li{
+.left-container .categories li {
   color: black;
 }
 
 /* Logout Button */
-#jokes .logout{
-    color: rgb(148, 140, 140);
-    font-size: 1.1em;
-    text-decoration: none;
+#jokes .logout {
+  color: rgb(148, 140, 140);
+  font-size: 1.1em;
+  text-decoration: none;
 }
 
-#jokes .logout:hover{
-  color: rgb(70,140,200)
+#jokes .logout:hover {
+  color: rgb(70, 140, 200);
 }
 
-.right-container{
+.right-container {
   background-color: rgb(172, 164, 164);
   float: right;
   padding-top: 15px;
@@ -197,55 +197,52 @@ nav li h5{
   overflow-y: scroll;
 }
 
-.right-container .joke{
+.right-container .joke {
   font-size: 2em;
 }
 
 /* Rating Stars on Hover */
-.right-container .star{
+.right-container .star {
   color: orange;
   font-size: 1.7em;
 }
 
 /* Rating Stars on Click */
-.right-container .star.selected{
+.right-container .star.selected {
   color: orange;
 }
 /* Favorite Button */
-.right-container .favorite{
+.right-container .fav {
   margin-left: 3vw;
   background-color: white;
 }
 
-.right-container .favorited{
-  margin-left: 3vw;
+.right-container .favorited {
   background-color: orange;
 }
 
-.right-container i{
+.right-container i {
   font-size: 1.5em;
 }
 
 /* Share Button */
-.right-container .share{
+.right-container .share {
   margin-left: 3vw;
- 
 }
 
 .right-container .share-link {
   word-wrap: break-word;
   font-size: 1.5rem;
-  color: steelblue !important; 
+  color: steelblue !important;
 }
 
 /* Display All Features in Joke Containers Inline */
-.right-container form{
+.right-container form {
   display: inline-block;
 }
 
-
 /* Add New Joke Form */
-#new-joke-form .right-container{
+#new-joke-form .right-container {
   background-color: rgb(172, 164, 164);
   padding-top: 15px;
   width: 70vw;
@@ -254,32 +251,33 @@ nav li h5{
 }
 
 /* Add Form Header */
-#new-joke-form h1{
+#new-joke-form h1 {
   padding-bottom: 1vh;
 }
 
-#new-joke-form label{
+#new-joke-form label {
   color: black;
   font-size: 1.3em;
 }
 
-#new-joke-form textarea{
+#new-joke-form textarea {
   font-size: 1.5em;
 }
 
 /* Edit and Delete Buttons on Edit Form */
-.edit-buttons > a, .edit-buttons > form{
+.edit-buttons > a,
+.edit-buttons > form {
   margin-left: 3vw;
   display: inline;
 }
 
-.error-message{
-   text-align: center;
-   color: red;
-   font-size: 1.5em;
-   font-style: italic;
-  
-    /* padding: 15px;
+.error-message {
+  text-align: center;
+  color: red;
+  font-size: 1.5em;
+  font-style: italic;
+
+  /* padding: 15px;
     margin-bottom: 20px;
     border: 1px solid transparent;
     border-radius: 4px;
@@ -290,26 +288,23 @@ nav li h5{
 }
 
 /* Navbar Toggle Button Fix */
-.navbar-toggle
-{
-    position:relative;
-    float:right;
-    padding:9px 10px;
-    margin-top:8px;
-    margin-right:15px;
-    margin-bottom:8px;
-    background-color:transparent;
-    background-image:none;
-    border-radius:4px;
-    border:1px solid white;
+.navbar-toggle {
+  position: relative;
+  float: right;
+  padding: 9px 10px;
+  margin-top: 8px;
+  margin-right: 15px;
+  margin-bottom: 8px;
+  background-color: transparent;
+  background-image: none;
+  border-radius: 4px;
+  border: 1px solid white;
 }
 
-.icon-bar
-{
-    display:block;
-    width:22px;
-    height:2px;
-    border-radius:1px;
-    border:1px solid white;
-
+.icon-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 1px;
+  border: 1px solid white;
 }
