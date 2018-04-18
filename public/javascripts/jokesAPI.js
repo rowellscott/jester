@@ -2,22 +2,49 @@
 
 const API = "http://localhost:3000";
 
+$(function() {
+  $('[data-toggle="popover"]').popover();
+});
+
+
 $(document).ready(() => {
   const favButtons = document.getElementsByClassName("fav");
 
   Array.from(favButtons).forEach(element => {
-    const fav = element.querySelectorAll("button");
-    console.log(fav);
     element.addEventListener("click", function(e) {
       e.preventDefault();
-      console.log(e.currentTarget);
+
+      //Get User ID and Joke ID from Html Tag to Send In Post Request
       const userID = e.currentTarget.dataset.user;
       const jokeID = e.currentTarget.dataset.joke;
 
       //Toggle Background Color
       e.currentTarget.classList.toggle("favorited");
+
       axios
         .post(`${API}/favorites/${userID}/${jokeID}`, {})
+        .then(res => {
+          console.log(res.status);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    });
+  });
+
+  const ratings = document.getElementsByClassName("star");
+
+  Array.from(ratings).forEach(element => {
+    element.addEventListener("mouseover", function(e) {
+      var onStar = parseInt(e.currentTarget.dataset.value, 10);
+    });
+
+    element.addEventListener("click", function(e) {
+      const jokeID = e.currentTarget.dataset.joke;
+      var rating = parseInt(e.currentTarget.dataset.value, 10);
+      //Submit Form to Star's Post Route in Ratings.js
+      axios
+        .post(`${API}/ratings/${jokeID}/${rating}`, {})
         .then(res => {
           console.log(res.status);
         })

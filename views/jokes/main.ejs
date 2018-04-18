@@ -8,21 +8,11 @@
       <br>
       <div class="row">
         <div class="rating col-xs-4">
-          <form action="/ratings/<%= joke._id %>/1" method="POST" id='star-1'>
-            <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='1'></span>
-          </form>
-          <form action="/ratings/<%= joke._id %>/2" method="POST" id='star-2'>
-            <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='2'></span>
-          </form>
-          <form action="/ratings/<%= joke._id %>/3" method="POST" id='star-3'>
-            <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='3'></span>
-          </form>
-          <form action="/ratings/<%= joke._id %>/4" method="POST" id='star-4'>
-            <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='4'></span>
-          </form>
-          <form action="/ratings/<%= joke._id %>/5" method="POST" id='star-5'>
-            <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='5'></span>
-          </form>
+          <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='1' data-joke="<%= joke._id %>"></span>
+          <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='2' data-joke="<%= joke._id %>"></span>
+          <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='3' data-joke="<%= joke._id %>"></span>
+          <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='4' data-joke="<%= joke._id %>"></span>
+          <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='5' data-joke="<%= joke._id %>"></span>
           <span class="rating-value">Avg.
             <%= joke.rating %>
           </span>
@@ -45,7 +35,7 @@
               <!-- </form> -->
               <% } %>
                 <!-- </form> -->
-                <button type="button" class="btn btn-default share" data-html="true" data-toggle="popover" title="Link" data-content="<a class='share-link' href='http://jester-app.herokuapp.com/share/<%= joke._id %>'>https://jester-app.herokuapp.com/share/<%= joke._id %></a>">Share
+                <button type="button" class="btn btn-default share" data-html="true" data-toggle="popover" title="Link" data-content="<a class='share-link' href='<%= urlBase %>/share/<%= joke._id %>'><%= urlBase %>/share/<%= joke._id %></a>">Share
                   <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
                 </button>
         </div>
