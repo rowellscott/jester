@@ -247,6 +247,7 @@ router.get(
           jokes: jokes,
           categories: categories,
           layout: "layouts/jokes",
+          urlBase: urlBase,
           user: req.user
         });
       });
@@ -284,6 +285,7 @@ router.post("/search", ensureLoggedIn("/login"), (req, res, next) => {
           jokes: jokes,
           categories: categories,
           layout: "layouts/jokes",
+          urlBase: urlBase,
           user: req.user
         });
       }

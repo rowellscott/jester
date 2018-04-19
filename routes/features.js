@@ -37,6 +37,7 @@ router.get("/favorites/:id", ensureLoggedIn("/login"), (req, res, next) => {
           categories: categories,
           jokes: favorites,
           layout: "layouts/jokes",
+          urlBase: urlBase,
           user: req.user
         });
       });
@@ -150,6 +151,7 @@ router.get("/share/:jokeId", ensureLoggedIn("/login"), (req, res, next) => {
         categories: categories,
         jokes: Thejoke,
         layout: "layouts/jokes",
+        urlBase: urlBase,
         user: req.user
       });
     });
