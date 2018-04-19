@@ -6,8 +6,8 @@ $(function() {
   $('[data-toggle="popover"]').popover();
 });
 
-
 $(document).ready(() => {
+  //Favorites Buttons Functionality
   const favButtons = document.getElementsByClassName("fav");
 
   Array.from(favButtons).forEach(element => {
@@ -32,16 +32,81 @@ $(document).ready(() => {
     });
   });
 
+  //Ratings Stars Functionality
   const ratings = document.getElementsByClassName("star");
 
   Array.from(ratings).forEach(element => {
+    //Color Stars to the Left On Mouseover the Star
     element.addEventListener("mouseover", function(e) {
       var onStar = parseInt(e.currentTarget.dataset.value, 10);
+
+      //Select All Stars For The Joke.
+      const parent = e.currentTarget.parentElement;
+      const children = Array.from(parent.children);
+
+      //Eliminate Ratings Value Node From List
+      const stars = [];
+      for (i = 0; i < 5; i++) {
+        stars.push(children[i]);
+      }
+
+      //Color All Stars Left of the Hovered Star
+      stars.forEach(star => {
+        let starValue = parseInt(star.dataset.value, 10);
+        //If Star Is Left Of Hovered Star and Has Star Class (To Eliminate Ratings Value), Remove Coloring
+        if (starValue <= onStar) {
+          star.classList.remove("glyphicon-star-empty");
+          star.classList.add("glyphicon-star");
+          console.log(star);
+        }
+      });
     });
 
+    //Remove Color From Stars on Mouseout
+    element.addEventListener("mouseout", function(e) {
+      var onStar = parseInt(e.currentTarget.dataset.value, 10);
+
+      //Select All Stars For The Joke.
+      const parent = e.currentTarget.parentElement;
+      const children = Array.from(parent.children);
+
+      //Eliminate Ratings Value Node From List
+      const stars = [];
+      for (i = 0; i < 5; i++) {
+        stars.push(children[i]);
+      }
+
+      //Remove Coloring From All Stars
+      stars.forEach(star => {
+        //If Star Has Not Been Selected By Click Function, Remove Coloring
+        if (star.classList.contains("selected") !== true) {
+          star.classList.remove("glyphicon-star");
+          star.classList.add("glyphicon-star-empty");
+          console.log(star);
+        }
+      });
+    });
+
+    //Send Rating To Database on Click and Color Stars Appropriately
     element.addEventListener("click", function(e) {
       const jokeID = e.currentTarget.dataset.joke;
       var rating = parseInt(e.currentTarget.dataset.value, 10);
+
+      //Select Stars For the Joke
+      const parent = e.currentTarget.parentElement;
+      const stars = Array.from(parent.children);
+
+      //Color Stars To Left Of Clicked Star
+      stars.forEach(star => {
+        let starValue = parseInt(star.dataset.value, 10);
+        if (starValue <= rating) {
+          star.classList.remove("glyphicon-star-empty");
+          star.classList.add("glyphicon-star");
+          //Class to Indicate to Mouseover and Mouseout Functions that Rating Has Been Clicked
+          star.classList.add("selected");
+        }
+      });
+
       //Submit Form to Star's Post Route in Ratings.js
       axios
         .post(`${API}/ratings/${jokeID}/${rating}`, {})
