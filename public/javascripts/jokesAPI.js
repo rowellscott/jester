@@ -111,7 +111,8 @@ $(document).ready(() => {
         .post(`${API}/ratings/${jokeID}/${rating}`, {})
         .then(res => {
           console.log(res.status);
-          console.log(res.rating);
+          // Set Avg. Rating Display to New Rating
+          stars[5].innerHTML = `Avg. ${res.data.rating}`;
         })
         .catch(err => {
           console.log(err);
