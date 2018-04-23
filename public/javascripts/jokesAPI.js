@@ -111,6 +111,7 @@ $(document).ready(() => {
         .post(`${API}/ratings/${jokeID}/${rating}`, {})
         .then(res => {
           console.log(res.status);
+          console.log(res.rating);
         })
         .catch(err => {
           console.log(err);

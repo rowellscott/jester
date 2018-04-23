@@ -108,7 +108,8 @@ router.post(
           if (err) {
             return next(err);
           }
-          res.redirect(req.session.current_url);
+          // res.redirect(req.session.current_url);
+          res.json({ rating: joke.rating });
         });
       }
     );
