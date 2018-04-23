@@ -3,7 +3,7 @@ const router = express.Router();
 const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
 const Joke = require("../models/joke");
 const User = require("../models/user");
-const urlBase = "http://localhost:3000";
+const urlBase = "https://jester-app.herokuapp.com";
 
 //Display User's Favorites List
 router.get("/favorites/:id", ensureLoggedIn("/login"), (req, res, next) => {
