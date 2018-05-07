@@ -80,63 +80,77 @@ router.post(
   "/ratings/:joke/:rating",
   ensureLoggedIn("/login"),
   (req, res, next) => {
-    User.findById(req.user._id, (err, user) => {
-      Joke.findById(
-        { _id: req.params.joke },
-        "rating ratingCount _id",
-        (err, joke) => {
-          if (err) {
-            console.log(err);
-            return next(err);
-          }
-          // console.log("joke:", joke);
-          let currentRating = joke.rating;
+    //Find all Users to Get Ratings for Each User
+    User.find({}, "ratings", (err, users) => {
+      if (err) {
+        console.log(err);
+        return next(err);
+      }
 
-          let userRating = parseInt(req.params.rating, 10);
-          console.log("userRating:", userRating);
-          let count = joke.ratingCount;
+      const userRatings = [];
+      req.user.ratings.forEach(rating => {
+        userRatings.push(rating.rating);
+      });
 
-          if (count > 0) {
-            let newRating = (currentRating * count + userRating) / (count + 1);
-            joke.rating = newRating.toFixed(1);
-            // console.log("Joke Rating:", joke.rating);
-          } else {
-            joke.rating = userRating;
-            // console.log("Joke Rating:", joke.rating);
-          }
-
-          //Add Rating to User Object In Database
-          let ratingsBool = false;
-          //If User Object Already Has Rating For the Joke, Update
-          user.ratings.forEach((ratingTwo, index) => {
-            if (ratingTwo.jokeId.equals(joke._id)) {
-              console.log("found");
-              user.ratings[index].rating = userRating;
-              ratingsBool = true;
-            }
-          });
-
-          //If User Object Doesn't Have Rating For the Joke, Add
-          if (ratingsBool === false) {
-            user.ratings.push({ jokeId: joke._id, rating: userRating });
-            joke.ratingCount = count + 1;
-          }
-          console.log(joke.ratingCount);
-
-          joke.save(err => {
+      User.findById(req.user._id, (err, user) => {
+        Joke.findById(
+          { _id: req.params.joke },
+          "rating ratingCount _id",
+          (err, joke) => {
             if (err) {
+              console.log(err);
               return next(err);
             }
-            user.save(err => {
+            // console.log("joke:", joke);
+            let currentRating = joke.rating;
+
+            let userRating = parseInt(req.params.rating, 10);
+            console.log("userRating:", userRating);
+            let count = joke.ratingCount;
+
+            if (count > 0) {
+              let newRating =
+                (currentRating * count - 1 + userRating) / (count + 1);
+              joke.rating = newRating.toFixed(1);
+              // console.log("Joke Rating:", joke.rating);
+            } else {
+              joke.rating = userRating;
+              // console.log("Joke Rating:", joke.rating);
+            }
+
+            //Add Rating to User Object In Database
+            let ratingsBool = false;
+            //If User Object Already Has Rating For the Joke, Update
+            user.ratings.forEach((ratingTwo, index) => {
+              if (ratingTwo.jokeId.equals(joke._id)) {
+                console.log("found");
+                user.ratings[index].rating = userRating;
+                ratingsBool = true;
+              }
+            });
+
+            //If User Object Doesn't Have Rating For the Joke, Add
+            if (ratingsBool === false) {
+              user.ratings.push({ jokeId: joke._id, rating: userRating });
+              joke.ratingCount = count + 1;
+            }
+            console.log(joke.ratingCount, joke.rating);
+
+            joke.save(err => {
               if (err) {
                 return next(err);
               }
+              user.save(err => {
+                if (err) {
+                  return next(err);
+                }
+              });
+              // res.redirect(req.session.current_url);
+              res.json({ rating: joke.rating });
             });
-            // res.redirect(req.session.current_url);
-            res.json({ rating: joke.rating });
-          });
-        }
-      );
+          }
+        );
+      });
     });
   }
 );

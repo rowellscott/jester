@@ -43,15 +43,36 @@ router.get("/", ensureLoggedIn("/login"), (req, res, next) => {
         }
       });
     });
+
+    //Put User Ratings Into An Array
+    const userRatings = [];
+    req.user.ratings.forEach(rating => {
+      userRatings.push(rating.rating);
+    });
+
+    const userRatingIds = [];
+    req.user.ratings.forEach(rating => {
+      userRatingIds.push(rating.jokeId.toString());
+    });
+    console.log(
+      userRatings,
+      userRatingIds,
+      userRatingIds.indexOf(jokes[0]._id.toString()),
+      jokes[0]._id
+    );
+
     //Sort Categories Alphabetically
     categories.sort();
     req.session.current_url = urlBase + "/jokes";
+
     res.render("jokes/main", {
       jokes: jokes,
       categories: categories,
       layout: "layouts/jokes",
       urlBase: urlBase,
-      user: req.user
+      user: req.user,
+      userRatings: userRatings,
+      userRatingIds: userRatingIds
     });
   });
 });

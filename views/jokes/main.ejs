@@ -7,22 +7,32 @@
       <br>
       <br>
       <div class="row">
-        <!-- Check if Joke Has A Rating By User -->
-        <%  user.ratings.forEach((ratingTwo, index) => { if (ratingTwo.jokeId.equals(joke._id)) { %>
-          <div class="rating col-xs-4" data-rating="<%= user.ratings[index].rating%>">
-            <% } else { %>
-              <div class="rating col-xs-4" data-rating="0">
-                <% }}); %>
-                  <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='1' data-joke="<%= joke._id %>"></span>
-                  <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='2' data-joke="<%= joke._id %>"></span>
-                  <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='3' data-joke="<%= joke._id %>"></span>
-                  <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='4' data-joke="<%= joke._id %>"></span>
-                  <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='5' data-joke="<%= joke._id %>"></span>
-                  <span class="rating-value">Avg.
-                    <%= joke.rating %>
-                  </span>
-              </div>
-              <div class- "col-xs-6">
+        <% if (userRatingIds.indexOf(joke._id.toString()) === -1) { %>
+          <div class="rating col-xs-4" data-rating="0">
+            <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='1' data-joke="<%= joke._id %>"></span>
+            <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='2' data-joke="<%= joke._id %>"></span>
+            <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='3' data-joke="<%= joke._id %>"></span>
+            <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='4' data-joke="<%= joke._id %>"></span>
+            <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='5' data-joke="<%= joke._id %>"></span>
+            <span class="rating-value">Avg.
+              <%= joke.rating %>
+            </span>
+          </div>
+          <% } else { %>
+            <div class="rating col-xs-4" data-rating="<%= userRatings[userRatingIds.indexOf(joke._id.toString())] %>">
+              <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='1' data-joke="<%= joke._id %>"></span>
+              <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='2' data-joke="<%= joke._id %>"></span>
+              <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='3' data-joke="<%= joke._id %>"></span>
+              <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='4' data-joke="<%= joke._id %>"></span>
+              <span class="glyphicon glyphicon-star-empty star" aria-hidden="true" data-value='5' data-joke="<%= joke._id %>"></span>
+              <span class="rating-value">Avg.
+                <%= joke.rating %>
+              </span>
+            </div>
+            <% } %>
+
+
+              <div class="col-xs-6">
                 <!-- If The Joke Isn't In the User's Favorites List -->
                 <% if (user.favorites.indexOf(joke._id) === -1 ){ %>
                   <!-- <form action="/favorites/<%= user._id %>/<%= joke._id %>" method="POST" id="favorites-on"> -->
@@ -44,9 +54,9 @@
                         <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
                       </button>
               </div>
-          </div>
       </div>
-      <% }) %>
+    </div>
+    <% }) %>
 
-        <div>
-        </div>
+      <div>
+      </div>

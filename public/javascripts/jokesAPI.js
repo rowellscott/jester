@@ -5,7 +5,7 @@ $(function() {
 });
 
 $(document).ready(() => {
-  //Color Stars According to User Rating in Database on Load
+  //Color Stars According to User Rating in Database on
   const ratingsTwo = document.getElementsByClassName("rating");
 
   Array.from(ratingsTwo).forEach(element => {
