@@ -1,4 +1,4 @@
-const API = "https://jester-app.herokuapp.com";
+const API = "http://localhost:3000";
 
 $(function() {
   $('[data-toggle="popover"]').popover();
