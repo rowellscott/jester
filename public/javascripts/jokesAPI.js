@@ -5,6 +5,27 @@ $(function() {
 });
 
 $(document).ready(() => {
+  //Color Stars According to User Rating in Database on Load
+  const ratingsTwo = document.getElementsByClassName("rating");
+
+  Array.from(ratingsTwo).forEach(element => {
+    let starsTwo = element.children;
+
+    Array.from(starsTwo).forEach(star => {
+      let rating = element.dataset.rating;
+      let starValue = parseInt(star.dataset.value, 10);
+      if (starValue <= rating) {
+        star.classList.remove("glyphicon-star-empty");
+        star.classList.add("glyphicon-star");
+        //Class to Indicate to Mouseover and Mouseout Functions that Rating Has Been Clicked
+        star.classList.add("selected");
+        //If Star is Already Selected, Remove Coloring If Clicked Star is To Left
+      } else if (starValue > rating && star.classList.contains("selected")) {
+        star.classList.remove("selected");
+      }
+    });
+  });
+
   //Favorites Buttons Functionality
   const favButtons = document.getElementsByClassName("fav");
 
