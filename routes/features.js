@@ -83,17 +83,30 @@ router.post(
     //Find all Users to Get Ratings for Each User
     User.find(
       { ratings: { $elemMatch: { jokeId: req.params.joke } } },
-      "ratings.rating",
+      "ratings",
       (err, users) => {
         if (err) {
           console.log(err);
           return next(err);
         }
-        console.log(users);
+
+        // console.log(users);
+        //Find Average of All Ratings for Joke
         const userRatings = [];
         users.forEach(user => {
-          userRatings.push(user.ratings);
+          // console.log(user);
+          user.ratings.forEach(rating => {
+            if (rating.jokeId.toString() === req.params.joke.toString()) {
+              userRatings.push(rating.rating);
+            }
+          });
         });
+        console.log("userRatings:", userRatings);
+        const ratingsSum = userRatings.reduce((sum, current) => {
+          return current + sum;
+        });
+        const currentRating = ratingsSum / userRatings.length;
+        // console.log("currentRating:", currentRating);
 
         User.findById(req.user._id, (err, user) => {
           Joke.findById(
@@ -104,16 +117,36 @@ router.post(
                 console.log(err);
                 return next(err);
               }
+
+              console.log("currentRating:", currentRating);
               // console.log("joke:", joke);
-              let currentRating = joke.rating;
+              // console.log("user:", user);
+
+              //Find User's Previous Rating For Joke If Applicable.
+              let previousRating = 0;
+              user.ratings.forEach(rating => {
+                if (rating.jokeId.toString() === req.params.joke.toString()) {
+                  previousRating = rating.rating;
+                }
+              });
+              console.log("previousUserRating:", previousRating);
+
+              // let currentRating = joke.rating;
 
               let userRating = parseInt(req.params.rating, 10);
               console.log("userRating:", userRating);
               let count = joke.ratingCount;
-
+              let newRating = 0;
               if (count > 0) {
-                let newRating =
-                  (currentRating * count - 1 + userRating) / (count + 1);
+                if (previousRating > 0) {
+                  console.log("count:", count);
+                  newRating = ratingsSum - previousRating + userRating / count;
+                } else {
+                  newRating =
+                    ratingsSum - previousRating + userRating / count + 1;
+                }
+                console.log("newRating:", newRating);
+                //   (currentRating * count - 1 + userRating) / (count + 1);
                 joke.rating = newRating.toFixed(1);
                 // console.log("Joke Rating:", joke.rating);
               } else {
