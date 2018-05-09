@@ -41,7 +41,7 @@ $(document).ready(() => {
       e.currentTarget.classList.toggle("favorited");
 
       axios
-        .post(`${API}/favorites/${userID}/${jokeID}`, {})
+        .post(`/favorites/${userID}/${jokeID}`, {})
         .then(res => {
           console.log(res.status);
         })
