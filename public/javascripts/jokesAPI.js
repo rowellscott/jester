@@ -1,4 +1,4 @@
-const API = "https:/jester-app.herokuapp.com";
+// const API = "https:/jester-app.herokuapp.com";
 
 $(function() {
   $('[data-toggle="popover"]').popover();
@@ -129,7 +129,7 @@ $(document).ready(() => {
 
       //Submit Form to Star's Post Route in Ratings.js
       axios
-        .post(`${API}/ratings/${jokeID}/${rating}`, {})
+        .post(`/ratings/${jokeID}/${rating}`, {})
         .then(res => {
           console.log(res.status);
           // Set Avg. Rating Display to New Rating
