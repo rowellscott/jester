@@ -155,19 +155,19 @@ router.post(
 
 
               
-              if (count > 1) {
+              if (count > 1 || userRatings.length > 0) {
                 //Check if There's a Previous Rating
                 if (previousRating > userRating) {
                  
                   newRating = (ratingsSum - (previousRating - userRating))/count;
                   console.log("newRatingTop:", newRating);
+                }   else if(previousRating = userRating){
+                  newRating = previousRating
                 } else if (previousRating < userRating) {
                   newRating = (ratingsSum + (userRating - previousRating))/(count + 1);
                   console.log("newRatingBtm:", newRating);
                 }
-                else if(previousRating = userRating){
-                  newRating = previousRating
-                }
+              
                 console.log("newRating:", newRating);
                 //   (currentRating * count - 1 + userRating) / (count + 1);
                 joke.rating = newRating.toFixed(1);
