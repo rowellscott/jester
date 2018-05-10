@@ -227,7 +227,9 @@ h5 {
 }
 
 /* Share Button */
-.right-container .share {
+.right-container .share,
+#edit-button,
+#delete-button {
   margin-left: 3vw;
 }
 
@@ -237,9 +239,10 @@ h5 {
   color: steelblue !important;
 }
 
-/* Display All Features in Joke Containers Inline */
-.right-container form {
-  display: inline-block;
+/* Display Delete Button Inline*/
+.right-container form,
+#delete-button {
+  display: inline;
 }
 
 /* Add New Joke Form */
@@ -263,13 +266,6 @@ h5 {
 
 #new-joke-form textarea {
   font-size: 1.5em;
-}
-
-/* Edit and Delete Buttons on Edit Form */
-.edit-buttons > a,
-.edit-buttons > form {
-  margin-left: 3vw;
-  display: inline;
 }
 
 .error-message {

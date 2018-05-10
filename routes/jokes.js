@@ -6,25 +6,6 @@ const User = require("../models/user");
 const shortUrl = require("node-url-shortener");
 const urlBase = "https://jester-app.herokuapp.com";
 
-const categories = [];
-function getCategories() {
-  Joke.find({}, (err, jokes) => {
-    if (err) {
-      return next(err);
-    }
-    // Create a List of Categories to Send to the Display
-    jokes.forEach(joke => {
-      joke.categories.forEach(category => {
-        if (categories.indexOf(category) === -1) {
-          categories.push(category);
-        }
-      });
-    });
-    // Sort Categories Alphabetically
-    return categories.sort();
-  });
-}
-
 router.get("/", ensureLoggedIn("/login"), (req, res, next) => {
   //Get all jokes from database and send to jokes/main.ejs for display
   Joke.find({}, (err, jokes) => {
@@ -181,6 +162,18 @@ router.get("/:id", ensureLoggedIn("/login"), (req, res, next) => {
     });
     //Sort Categories Alphabetically
     categories.sort();
+
+    //Put User Ratings Into An Array
+    const userRatings = [];
+    req.user.ratings.forEach(rating => {
+      userRatings.push(rating.rating);
+    });
+
+    const userRatingIds = [];
+    req.user.ratings.forEach(rating => {
+      userRatingIds.push(rating.jokeId.toString());
+    });
+
     req.session.current_url = urlBase + "/jokes/" + req.params.id;
     // Find Jokes Associated With User
     Joke.find({ author: req.params.id }, (err, jokes) => {
@@ -191,7 +184,10 @@ router.get("/:id", ensureLoggedIn("/login"), (req, res, next) => {
         jokes: jokes,
         categories: categories,
         layout: "layouts/jokes",
-        user: req.user
+        user: req.user,
+        userRatings: userRatings,
+        userRatingIds: userRatingIds,
+        urlBase: urlBase
       });
     });
   });
@@ -258,6 +254,17 @@ router.get(
       //Sort Categories Alphabetically
       categories.sort();
 
+      //Put User Ratings Into An Array
+      const userRatings = [];
+      req.user.ratings.forEach(rating => {
+        userRatings.push(rating.rating);
+      });
+
+      const userRatingIds = [];
+      req.user.ratings.forEach(rating => {
+        userRatingIds.push(rating.jokeId.toString());
+      });
+
       var category = req.params.category;
       console.log(category);
       req.session.current_url =
@@ -269,7 +276,9 @@ router.get(
           categories: categories,
           layout: "layouts/jokes",
           urlBase: urlBase,
-          user: req.user
+          user: req.user,
+          userRatings: userRatings,
+          userRatingIds: userRatingIds
         });
       });
     });
@@ -297,6 +306,17 @@ router.post("/search", ensureLoggedIn("/login"), (req, res, next) => {
     //Sort Categories Alphabetically
     categories.sort();
 
+    //Put User Ratings Into An Array
+    const userRatings = [];
+    req.user.ratings.forEach(rating => {
+      userRatings.push(rating.rating);
+    });
+
+    const userRatingIds = [];
+    req.user.ratings.forEach(rating => {
+      userRatingIds.push(rating.jokeId.toString());
+    });
+
     console.log(req.body.query);
     Joke.find(
       { content: { $regex: req.body.query, $options: "i" } },
@@ -307,7 +327,9 @@ router.post("/search", ensureLoggedIn("/login"), (req, res, next) => {
           categories: categories,
           layout: "layouts/jokes",
           urlBase: urlBase,
-          user: req.user
+          user: req.user,
+          userRatings: userRatings,
+          userRatingIds: userRatingIds
         });
       }
     );
@@ -373,58 +395,5 @@ router.post("/:id/delete", ensureLoggedIn("/login"), (req, res, next) => {
     res.redirect("/jokes/" + joke.author);
   });
 });
-
-// Favorites Button Handler
-// router.post('/joke/:id', (req, res, next)=>{
-//     Joke.findById(req.params.id, (err, joke)=>{
-//         if(err){return next(err)}
-//         console.log(joke)
-//         console.log(req)
-//     User.findById(req.user.id, (err, user)=>{
-//         if(err){return next(err)}
-//         user.favorites.push(joke._id);
-//         console.log(user.favorites)
-//       })
-//     })
-//     res.redirect(req.res._headers.location);
-// })
-
-// router.get("/search", (req, res, next)=>{
-//   res.redirect('/jokes');
-// });
-
-// router.get('/categories', ensureLoggedIn('/login'), (req, res, next)=>{
-//   Joke.find({})
-//   res.render('jokes/main', {jokes: jokes, layout: 'layouts/jokes'});
-// })
-
-// Route to Find Individual Joke
-// router.get("/joke/:id", ensureLoggedIn('/login'), (req, res, next)=>{
-//   Joke.find({}, (err, jokes)=>{
-//     if(err){return next(err)}
-//     //Create a List of Categories to Send to the Display
-//     var categories =[];
-//     jokes.forEach(joke =>{
-//       joke.categories.forEach(category => {
-//         if(category ==="None"){
-//           return
-//         }
-//        else if(categories.indexOf(category) === -1){
-//           console.log(category)
-//           categories.push(category)
-//         }
-//     })
-//     })
-//     //Sort Categories Alphabetically
-//     categories.sort();
-
-//     Joke.findById(id, (err, joke)=>{
-//       if (err) {return next(err)}
-//       console.log(joke)
-//       res.redirect('/jokes')
-//         res.render('jokes/main', {jokes: joke, categories: categories, layout: 'layouts/jokes', user: req.user});
-//     });
-//   });
-// });
 
 module.exports = router;

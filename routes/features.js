@@ -29,6 +29,18 @@ router.get("/favorites/:id", ensureLoggedIn("/login"), (req, res, next) => {
             }
           });
         });
+
+        //Put User Ratings Into An Array
+    const userRatings = [];
+    req.user.ratings.forEach(rating => {
+      userRatings.push(rating.rating);
+    });
+
+    const userRatingIds = [];
+    req.user.ratings.forEach(rating => {
+      userRatingIds.push(rating.jokeId.toString());
+    });
+
         //Sort Categories Alphabetically
         categories.sort();
         req.session.current_url = urlBase + "/favorites/" + req.params.id;
@@ -38,7 +50,9 @@ router.get("/favorites/:id", ensureLoggedIn("/login"), (req, res, next) => {
           jokes: favorites,
           layout: "layouts/jokes",
           urlBase: urlBase,
-          user: req.user
+          user: req.user,
+          userRatings: userRatings,
+          userRatingIds: userRatingIds
         });
       });
     });
@@ -161,10 +175,10 @@ router.post(
                  
                   newRating = (ratingsSum - (previousRating - userRating))/count;
                   console.log("newRatingTop:", newRating);
-                }   else if(previousRating = userRating){
+                }   else if (previousRating === userRating){
                   newRating = previousRating
                 } else if (previousRating < userRating) {
-                  newRating = (ratingsSum + (userRating - previousRating))/(count + 1);
+                  newRating = (ratingsSum + (userRating - previousRating))/(count);
                   console.log("newRatingBtm:", newRating);
                 }
               
@@ -244,6 +258,17 @@ router.get("/share/:jokeId", ensureLoggedIn("/login"), (req, res, next) => {
       //Sort Categories Alphabetically
       categories.sort();
 
+      //Put User Ratings Into An Array
+      const userRatings = [];
+      req.user.ratings.forEach(rating => {
+        userRatings.push(rating.rating);
+      });
+
+      const userRatingIds = [];
+      req.user.ratings.forEach(rating => {
+        userRatingIds.push(rating.jokeId.toString());
+      });
+
       //Cast the Joke As An Array For forEach in main.ejs
       Thejoke = [Thejoke];
       // console.log(user.favorites)
@@ -252,7 +277,9 @@ router.get("/share/:jokeId", ensureLoggedIn("/login"), (req, res, next) => {
         jokes: Thejoke,
         layout: "layouts/jokes",
         urlBase: urlBase,
-        user: req.user
+        user: req.user,
+        userRatings: userRatings,
+        userRatingIds: userRatingIds
       });
     });
   });
