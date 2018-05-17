@@ -31,15 +31,15 @@ router.get("/favorites/:id", ensureLoggedIn("/login"), (req, res, next) => {
         });
 
         //Put User Ratings Into An Array
-    const userRatings = [];
-    req.user.ratings.forEach(rating => {
-      userRatings.push(rating.rating);
-    });
+        const userRatings = [];
+        req.user.ratings.forEach(rating => {
+          userRatings.push(rating.rating);
+        });
 
-    const userRatingIds = [];
-    req.user.ratings.forEach(rating => {
-      userRatingIds.push(rating.jokeId.toString());
-    });
+        const userRatingIds = [];
+        req.user.ratings.forEach(rating => {
+          userRatingIds.push(rating.jokeId.toString());
+        });
 
         //Sort Categories Alphabetically
         categories.sort();
@@ -117,16 +117,16 @@ router.post(
         });
         console.log("userRatings for Joke:", userRatings);
 
-        let ratingsSum=0
-        let count =0
-       
-        if(userRatings.length !==0){
-        ratingsSum = userRatings.reduce((sum, current) => {
-          return current + sum;
-        });
-        count = userRatings.length;
-        const currentRating = ratingsSum / count;
-      } 
+        let ratingsSum = 0;
+        let count = 0;
+
+        if (userRatings.length !== 0) {
+          ratingsSum = userRatings.reduce((sum, current) => {
+            return current + sum;
+          });
+          count = userRatings.length;
+          const currentRating = ratingsSum / count;
+        }
 
         // console.log("currentRating:", currentRating);
 
@@ -146,13 +146,13 @@ router.post(
 
               //Find User's Previous Rating For Joke If Applicable.
               let previousRating = 0;
-            
+
               user.ratings.forEach(rating => {
                 if (rating.jokeId.toString() === req.params.joke.toString()) {
                   previousRating = rating.rating;
                 }
               });
-              
+
               // console.log("previousUserRating:", previousRating);
 
               // let currentRating = joke.rating;
@@ -160,28 +160,33 @@ router.post(
               let userRating = parseInt(req.params.rating, 10);
               console.log("userRating:", userRating);
               // let count = joke.ratingCount;
-        
 
               let newRating = 0;
               console.log("count:", count);
               console.log("ratingsSum:", ratingsSum);
               console.log("previousRating:", previousRating);
 
-
-              
               if (count > 1 || userRatings.length > 0) {
                 //Check if There's a Previous Rating
                 if (previousRating > userRating) {
-                 
-                  newRating = (ratingsSum - (previousRating - userRating))/count;
+                  newRating =
+                    (ratingsSum - (previousRating - userRating)) / count;
                   console.log("newRatingTop:", newRating);
-                }   else if (previousRating === userRating){
-                  newRating = previousRating
-                } else if (previousRating < userRating) {
-                  newRating = (ratingsSum + (userRating - previousRating))/(count);
+                } else if (previousRating === userRating) {
+                  newRating = previousRating;
+                } else if (
+                  previousRating < userRating &&
+                  previousRating === 0
+                ) {
+                  newRating =
+                    (ratingsSum + (userRating - previousRating)) / (count + 1);
                   console.log("newRatingBtm:", newRating);
+                } else if (previousRating < userRating && previousRating > 0) {
+                  newRating =
+                    (ratingsSum + (userRating - previousRating)) / count;
+                  console.log("newRatingBtm2:", newRating);
                 }
-              
+
                 console.log("newRating:", newRating);
                 //   (currentRating * count - 1 + userRating) / (count + 1);
                 joke.rating = newRating.toFixed(1);
@@ -207,7 +212,12 @@ router.post(
                 user.ratings.push({ jokeId: joke._id, rating: userRating });
                 joke.ratingCount = count + 1;
               }
-              console.log("ratingCount:", joke.ratingCount, "Joke Rating:", joke.rating);
+              console.log(
+                "ratingCount:",
+                joke.ratingCount,
+                "Joke Rating:",
+                joke.rating
+              );
 
               joke.save(err => {
                 if (err) {
